@@ -1,8 +1,37 @@
-body{
-
+body {
+	background: url('../img/bgr-40.png') center top no-repeat;
+	background-size: cover;
+}
+.container .barcode input{
+	width: 300px;
+	margin: 0 auto;
+	display: block;
+	height: 50px;
+	padding: 20px;
+}
+h1{
+	color: #ffffff;
 }
 .container .logo{
 	margin-top: 20px;
 	padding: 10px;
-	background-color: #BD0102;
+}
+.container .list{
+	background-color: rgba(255,255,255,0.8);
+	padding: 30px;
+	height: 300px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	text-align: center;
+}
+.container .list i.fa-barcode{
+	font-size: 60px;
+}
+.container .list table{
+	text-align: left;
+}
+.container .list table a{
+	color: #BD0102;
+	font-size: 20px;
 }
