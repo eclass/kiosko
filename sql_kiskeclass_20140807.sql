@@ -1,121 +1,122 @@
+-- phpMyAdmin SQL Dump
+-- version 3.2.4
+-- http://www.phpmyadmin.net
+--
+-- Servidor: localhost
+-- Tiempo de generación: 07-08-2014 a las 21:49:15
+-- Versión del servidor: 5.1.44
+-- Versión de PHP: 5.3.1
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
 
--- ---
--- Globals
--- ---
+--
+-- Base de datos: `kiskeclass`
+--
 
--- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
--- SET FOREIGN_KEY_CHECKS=0;
+-- --------------------------------------------------------
 
--- ---
--- Table 'transactions'
--- 
--- ---
+--
+-- Estructura de tabla para la tabla `pays`
+--
 
-DROP TABLE IF EXISTS `transactions`;# MySQL ha devuelto un valor vacío (i.e., cero columnas).
+CREATE TABLE IF NOT EXISTS `pays` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `monto` int(11) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `id_persona` int(25) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-		
-CREATE TABLE `transactions` (
-	`id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
-	`id_pays` TINYINT NULL DEFAULT NULL,
-	`fecha` DATE NULL DEFAULT NULL,
-	`total` INT(10) NULL DEFAULT NULL,
-	`id_persona` INT(25) NULL DEFAULT NULL,
-	PRIMARY KEY (`id`)
-);# MySQL ha devuelto un valor vacío (i.e., cero columnas).
-
-
--- ---
--- Table 'products'
--- 
--- ---
-
-DROP TABLE IF EXISTS `products`;# MySQL ha devuelto un valor vacío (i.e., cero columnas).
-
-		
-CREATE TABLE `products` (
-	`id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
-	`nombre` VARCHAR(250) NULL DEFAULT NULL,
-	`codigo` VARCHAR(250) NULL DEFAULT NULL,
-	`precio` INT(10) NULL DEFAULT NULL,
-	`descripcion` MEDIUMTEXT NULL DEFAULT NULL,
-	`stock` INT(5) NULL DEFAULT NULL,
-	PRIMARY KEY (`id`)
-);# MySQL ha devuelto un valor vacío (i.e., cero columnas).
+--
+-- Volcar la base de datos para la tabla `pays`
+--
 
 
--- ---
--- Table 'pays'
--- 
--- ---
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `pays`;# MySQL ha devuelto un valor vacío (i.e., cero columnas).
+--
+-- Estructura de tabla para la tabla `products`
+--
 
-		
-CREATE TABLE `pays` (
-	`id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
-	`monto` INT NULL DEFAULT NULL,
-	`fecha` DATE NULL DEFAULT NULL,
-	`id_persona` INT(25) NULL DEFAULT NULL,
-	PRIMARY KEY (`id`)
-);# MySQL ha devuelto un valor vacío (i.e., cero columnas).
+CREATE TABLE IF NOT EXISTS `products` (
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(250) DEFAULT NULL,
+  `codigo` varchar(250) DEFAULT NULL,
+  `precio` int(10) DEFAULT NULL,
+  `descripcion` mediumtext,
+  `stock` int(5) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-
--- ---
--- Table 'repositions'
--- 
--- ---
-
-DROP TABLE IF EXISTS `repositions`;# MySQL ha devuelto un valor vacío (i.e., cero columnas).
-
-		
-CREATE TABLE `repositions` (
-	`id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
-	`id_products` TINYINT NULL DEFAULT NULL,
-	`fecha` DATE NULL DEFAULT NULL,
-	`cantidad` INT(5) NULL DEFAULT NULL,
-	PRIMARY KEY (`id`)
-);# MySQL ha devuelto un valor vacío (i.e., cero columnas).
+--
+-- Volcar la base de datos para la tabla `products`
+--
 
 
--- ---
--- Table 'products_transactions'
--- 
--- ---
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `products_transactions`;# MySQL ha devuelto un valor vacío (i.e., cero columnas).
+--
+-- Estructura de tabla para la tabla `products_transactions`
+--
 
-		
-CREATE TABLE `products_transactions` (
-	`id` TINYINT NULL AUTO_INCREMENT DEFAULT NULL,
-	`id_products` TINYINT NULL DEFAULT NULL,
-	`id_transactions` TINYINT NULL DEFAULT NULL,
-	`monto` INT(10) NULL DEFAULT NULL,
-	PRIMARY KEY (`id`)
-);# MySQL ha devuelto un valor vacío (i.e., cero columnas).
+CREATE TABLE IF NOT EXISTS `products_transactions` (
+  `id` tinyint(11) NOT NULL AUTO_INCREMENT,
+  `id_products` tinyint(9) DEFAULT NULL,
+  `id_transactions` tinyint(11) DEFAULT NULL,
+  `monto` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_products` (`id_products`),
+  KEY `id_transactions` (`id_transactions`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-
--- ---
--- Foreign Keys 
--- ---
-
-ALTER TABLE `transactions` ADD FOREIGN KEY (id_pays) REFERENCES `pays` (`id`);# MySQL ha devuelto un valor vacío (i.e., cero columnas).
-
-ALTER TABLE `repositions` ADD FOREIGN KEY (id_products) REFERENCES `products` (`id`);# MySQL ha devuelto un valor vacío (i.e., cero columnas).
-
-ALTER TABLE `products_transactions` ADD FOREIGN KEY (id_products) REFERENCES `products` (`id`);# MySQL ha devuelto un valor vacío (i.e., cero columnas).
-
-ALTER TABLE `products_transactions` ADD FOREIGN KEY (id_transactions) REFERENCES `transactions` (`id`);# MySQL ha devuelto un valor vacío (i.e., cero columnas).
+--
+-- Volcar la base de datos para la tabla `products_transactions`
+--
 
 
--- ---
--- Table Properties
--- ---
+-- --------------------------------------------------------
 
--- ALTER TABLE `transactions` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `products` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `pays` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `repositions` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
--- ALTER TABLE `products_transactions` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-# MySQL ha devuelto un valor vacío (i.e., cero columnas).
+--
+-- Estructura de tabla para la tabla `repositions`
+--
+
+CREATE TABLE IF NOT EXISTS `repositions` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `id_products` int(9) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `cantidad` int(5) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_products` (`id_products`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Volcar la base de datos para la tabla `repositions`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `transactions`
+--
+
+CREATE TABLE IF NOT EXISTS `transactions` (
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `id_pays` int(10) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `total` int(10) DEFAULT NULL,
+  `id_persona` int(25) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_pays` (`id_pays`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Volcar la base de datos para la tabla `transactions`
+--
+
