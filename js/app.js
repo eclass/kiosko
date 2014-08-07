@@ -1,6 +1,8 @@
 var kiosko = function() {
 	var self = this;
 
+	var session_products;
+
 	this.init = function() {
 		this.home();	
 	}
@@ -18,7 +20,14 @@ var kiosko = function() {
 	}
 
 	this.voucher = function() {
+		var empty_voucher = $('.empty-voucher');
+			voucher = $('.voucher');
 
+		
+
+		if(session_products.length > 0) {
+
+		}
 	}
 
 	this.init();
