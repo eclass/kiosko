@@ -17,7 +17,7 @@ h1{
 	padding: 10px;
 }
 .container .list{
-	background-color: #FFFFFF;
+	background-color: rgba(255,255,255,0.8);
 	padding: 30px;
 	height: 300px;
 	-moz-border-radius: 5px;
