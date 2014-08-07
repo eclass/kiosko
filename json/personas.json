@@ -1,0 +1,17 @@
+{
+	"17104134": {
+		id: 1,
+		nombre: "Juan Pablo Barrientos",
+		email: "jbarrientos@eclass.cl"
+	},
+	"16076566": {
+		id: 3,
+		nombre: "Víctor San Martin",
+		email: "victor@eclass.cl"
+	},
+	"17667409": {
+		id: 2,
+		nombre: "Sergio Barnachea",
+		email: "sbarnachea@eclass.cl"
+	}
+}
