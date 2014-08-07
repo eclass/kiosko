@@ -1,23 +1,27 @@
 var kiosko = function() {
+	var self = this;
 
-	var init = function() {
-		home();	
-	}
-	init();
-
-
-	var home = function() {
-		$('documento').on('keyup', function(e) {
-			if (e.keyCode == 32) {
-				alert('enter');
-			}
-		});
+	this.init = function() {
+		this.home();	
 	}
 
-	var voucher = function() {
+
+	this.home = function() {
+		$('input#documento')
+			.focus()
+			.on('keypress', function(e) {
+				var code = e.keyCode || e.which;
+				if (code == 13) {
+					
+				}
+			});
+	}
+
+	this.voucher = function() {
 
 	}
 
+	this.init();
 };
 
 $(document).ready(kiosko);
