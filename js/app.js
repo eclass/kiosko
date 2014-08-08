@@ -1,3 +1,10 @@
+/*!
+ * Functions, interactions, etc.
+ * 
+ * @author @questchile, @sbarnachea, @juanpablob
+ * @since 2014-08-08
+ * @return object
+ */
 var kiosko = function() {
 	var self = this;
 
@@ -10,7 +17,6 @@ var kiosko = function() {
 	this.init = function() {
 		$.getJSON('json/personas.json', function(data) {
 			json.persons = data;
-			console.log(json);
 		});
 
 		this.home();	
@@ -18,33 +24,43 @@ var kiosko = function() {
 
 
 	this.home = function() {
-		$('input#documento')
+		$('input#document_number')
 			.focus()
 			.on('keypress', function(e) {
 				var code = e.keyCode || e.which;
 				if (code == 13) {
-					var documento = $('input#documento');
-					if (!documento.val()) {
+					alert('enter');
+					var document_number = $('input#document_number');
+					if (!document_number.val()) {
 						alert('Incluya algo');
+						document_number.val('').focus();
+						return false;
 					}
 
-					if (!this.__isValidDocument(documento.val())) {
-						alert('Documento inválido')
+					if (!self.__isValidDocument(document_number.val())) {
+						alert('Documento inválido');
+						document_number.val('').focus();
+						return false;
 					}
+
+					self.voucher();
 				}
 			});
 	}
-	this.__isValidDocument = function(documento) {
-		documento = documento.replace(/[^0-9kK]+/g,'').toUpperCase();
+	this.__isValidDocument = function(document_number) {
+		document_number = document_number.replace(/[^0-9kK]+/g,'').toUpperCase();
 
-		if (documento.length < 7) {
+		if (document_number.length < 7) {
 			return false;
 		}
 
-		if (!json.persons.hasOwnerProperty(documento)) {
+		if (typeof json.persons[document_number] === 'undefined') {
 			return false;
 		}
+		
+		return true;
 	}
+
 
 
 	this.voucher = function() {
