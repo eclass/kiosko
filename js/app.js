@@ -15,11 +15,8 @@ var kiosko = function() {
 	}
 
 	this.init = function() {
-		$.getJSON('json/personas.json', function(data) {
-			json.persons = data;
-		});
-
-		this.home();	
+		this.__loadJsonPersons();
+		this.home();
 	}
 
 
@@ -65,6 +62,17 @@ var kiosko = function() {
 
 	this.voucher = function() {
 
+	}
+
+
+
+	this.__loadJsonPersons = function() {
+		$.getJSON('json/personas.json', function(data) {
+			json.persons = data;
+			setTimeout(function() {
+				self.__loadJsonPersons();
+			}, ((1000 * 60) * 10));
+		});
 	}
 
 	this.init();
