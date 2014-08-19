@@ -13,6 +13,10 @@ var kiosko = function() {
 			console.log(json);
 		});
 
+		$.getJSON('json/productos.json', function(data) {
+			json.products = data;
+		});
+
 		self.home();	
 	}
 
