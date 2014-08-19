@@ -33,7 +33,7 @@ h1{
 .container .list table{
 	text-align: left;
 }
-.container .list table a{
+.container .list .productos a{
 	color: #BD0102;
 	font-size: 20px;
 }
