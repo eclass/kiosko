@@ -21,12 +21,12 @@ h1{
 .container .list{
 	background-color: rgba(255,255,255,0.8);
 	padding: 30px;
-	height: 300px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	text-align: center;
 }
+
 .container .list i.fa-barcode{
 	font-size: 60px;
 }
@@ -43,3 +43,11 @@ h1{
 .container .list .total div{
 	margin-left: 100px;
 }
+
+.productos .title{
+	font-weight: bold
+}
+.productos .row:nth-child(even) {
+	background-color: #F9F9F9
+}
+
