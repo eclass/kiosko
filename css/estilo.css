@@ -25,6 +25,7 @@ h1{
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	text-align: center;
+	font-size: 28px;
 }
 
 .container .list i.fa-barcode{
