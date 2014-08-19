@@ -50,10 +50,11 @@ var kiosko = function() {
 		if (documento.length < 7) {
 			return false;
 		}
-
-		if (!json.persons.hasOwnerProperty(documento)) {
+		if (typeof json.persons[documento] === 'undefined') {
 			return false;
 		}
+
+		return true;
 	}
 
 
