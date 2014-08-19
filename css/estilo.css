@@ -21,7 +21,6 @@ h1{
 .container .list{
 	background-color: rgba(255,255,255,0.8);
 	padding: 30px;
-	height: 300px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
@@ -30,7 +29,7 @@ h1{
 .container .list i.fa-barcode{
 	font-size: 60px;
 }
-.container .list table{
+.container .list table td:first-child{
 	text-align: left;
 }
 .container .list table a{
@@ -42,4 +41,7 @@ h1{
 }
 .container .list .total div{
 	margin-left: 100px;
+}
+.container .list img{
+	width: 80px;
 }
