@@ -1,10 +1,3 @@
-/*!
- * Functions, interactions, etc.
- * 
- * @author @questchile, @sbarnachea, @juanpablob
- * @since 2014-08-08
- * @return object
- */
 var kiosko = function() {
 	var self = this;
 
@@ -15,67 +8,81 @@ var kiosko = function() {
 	}
 
 	this.init = function() {
-		this.__loadJsonPersons();
-		this.home();
+		$.getJSON('json/personas.json', function(data) {
+			json.persons = data;
+			console.log(json);
+		});
+
+		self.home();	
 	}
 
 
 	this.home = function() {
-		$('input#document_number')
+		$('#credencial').fadeIn();
+
+		$('input#rut')
 			.focus()
 			.on('keypress', function(e) {
 				var code = e.keyCode || e.which;
 				if (code == 13) {
-					alert('enter');
-					var document_number = $('input#document_number');
-					if (!document_number.val()) {
+					var documento = $('input#rut');
+					if (!documento.val()) {
 						alert('Incluya algo');
-						document_number.val('').focus();
 						return false;
 					}
 
-					if (!self.__isValidDocument(document_number.val())) {
+					if (!self.__isValidDocument(documento.val())) {
 						alert('Documento inválido');
-						document_number.val('').focus();
-						return false;
 					}
 
 					self.voucher();
 				}
 			});
 	}
-	this.__isValidDocument = function(document_number) {
-		document_number = document_number.replace(/[^0-9kK]+/g,'').toUpperCase();
 
-		if (document_number.length < 7) {
+	this.__isValidDocument = function(documento) {
+		documento = documento.replace(/[^0-9kK]+/g,'').toUpperCase();
+
+		if (documento.length < 7) {
 			return false;
 		}
 
-		if (typeof json.persons[document_number] === 'undefined') {
+		if (!json.persons.hasOwnerProperty(documento)) {
 			return false;
 		}
-		
-		return true;
 	}
-
 
 
 	this.voucher = function() {
-
-	}
-
-
-
-	this.__loadJsonPersons = function() {
-		$.getJSON('json/personas.json', function(data) {
-			json.persons = data;
-			setTimeout(function() {
-				self.__loadJsonPersons();
-			}, ((1000 * 60) * 10));
+		$('#credencial').fadeOut(function() {
+			$('#carro').fadeIn();
 		});
+
+		$('#codigo_producto')
+			.focus()
+			.on('keypress', function(e) {
+				var code = e.keyCode || e.which;
+				if (code == 13) {
+					var codigo_producto = $('#codigo_producto');
+					if (!codigo_producto.val()) {
+						alert('Acerca un producto');
+						return false;
+					}
+
+					if (!self.__isValidProduct(codigo_producto.val())) {
+						alert('El producto no existe');
+					}
+
+					alert('wena choro');
+				}
+			});
 	}
 
-	this.init();
+	this.__isValidProduct = function(product_code) {
+		console.log(json.products);
+	}
+
+	self.init();
 };
 
 $(document).ready(kiosko);
