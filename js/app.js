@@ -27,7 +27,7 @@ var kiosko = function() {
 
 		console.log(json.transactions[0]);
 
-		self.home();	
+		self.home();
 	}
 
 
