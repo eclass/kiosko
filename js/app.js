@@ -13,27 +13,33 @@ var kiosko = function() {
 			console.log(json);
 		});
 
-		this.home();	
+		self.home();	
 	}
 
 
 	this.home = function() {
-		$('input#documento')
+		$('#credencial').fadeIn();
+
+		$('input#rut')
 			.focus()
 			.on('keypress', function(e) {
 				var code = e.keyCode || e.which;
 				if (code == 13) {
-					var documento = $('input#documento');
+					var documento = $('input#rut');
 					if (!documento.val()) {
 						alert('Incluya algo');
+						return false;
 					}
 
-					if (!this.__isValidDocument(documento.val())) {
-						alert('Documento inválido')
+					if (!self.__isValidDocument(documento.val())) {
+						alert('Documento inválido');
 					}
+
+					self.voucher();
 				}
 			});
 	}
+
 	this.__isValidDocument = function(documento) {
 		documento = documento.replace(/[^0-9kK]+/g,'').toUpperCase();
 
@@ -48,10 +54,35 @@ var kiosko = function() {
 
 
 	this.voucher = function() {
+		$('#credencial').fadeOut(function() {
+			$('#carro').fadeIn();
+		});
 
+		$('#codigo_producto')
+			.focus()
+			.on('keypress', function(e) {
+				var code = e.keyCode || e.which;
+				if (code == 13) {
+					var codigo_producto = $('#codigo_producto');
+					if (!codigo_producto.val()) {
+						alert('Acerca un producto');
+						return false;
+					}
+
+					if (!self.__isValidProduct(codigo_producto.val())) {
+						alert('El producto no existe');
+					}
+
+					alert('wena choro');
+				}
+			});
 	}
 
-	this.init();
+	this.__isValidProduct = function(product_code) {
+		console.log(json.products);
+	}
+
+	self.init();
 };
 
 $(document).ready(kiosko);
