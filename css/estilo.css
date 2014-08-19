@@ -44,9 +44,21 @@ h1{
 .container .list .total div{
 	margin-left: 100px;
 }
+.container .list .keyboards{
+	text-align: left;
+	padding: 10px;
+	border: 1px solid #F9F9F9;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	margin-top: 50px;
+}
 
 .productos .title{
 	font-weight: bold
+}
+.productos .row{
+	padding: 10px 0;
 }
 .productos .row:nth-child(even) {
 	background-color: #F9F9F9
