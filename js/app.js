@@ -1,19 +1,33 @@
 var kiosko = function() {
-	var self = this;
+	var self = this,
+		state = 0,
+		cart = 0;
 
 	var json = {
 		persons: {},
 		products: {},
-		trasactions: []
+		transactions: [
+			{
+				products: ['00005543', '94273498'],
+				person_id: 56,
+				created: 054945394
+			}
+		]
 	}
 
 	this.init = function() {
 		$.getJSON('json/personas.json', function(data) {
 			json.persons = data;
-			console.log(json);
+			//console.log(json);
 		});
 
-		self.home();	
+		$.getJSON('json/productos.json', function(data) {
+			json.products = data;
+		});
+
+		console.log(json.transactions[0]);
+
+		self.home();
 	}
 
 
@@ -46,10 +60,11 @@ var kiosko = function() {
 		if (documento.length < 7) {
 			return false;
 		}
-
-		if (!json.persons.hasOwnerProperty(documento)) {
+		if (typeof json.persons[documento] === 'undefined') {
 			return false;
 		}
+
+		return true;
 	}
 
 
@@ -79,7 +94,11 @@ var kiosko = function() {
 	}
 
 	this.__isValidProduct = function(product_code) {
-		console.log(json.products);
+		if (typeof json.products[product_code] === 'undefined') {
+			return false;
+		}
+
+		return true;
 	}
 
 	self.init();

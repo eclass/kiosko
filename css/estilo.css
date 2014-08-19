@@ -26,10 +26,11 @@ h1{
 	border-radius: 5px;
 	text-align: center;
 }
+
 .container .list i.fa-barcode{
 	font-size: 60px;
 }
-.container .list table td:first-child{
+.container .list table{
 	text-align: left;
 }
 .container .list table a{
@@ -42,6 +43,11 @@ h1{
 .container .list .total div{
 	margin-left: 100px;
 }
-.container .list img{
-	width: 80px;
+
+.productos .title{
+	font-weight: bold
 }
+.productos .row:nth-child(even) {
+	background-color: #F9F9F9
+}
+
