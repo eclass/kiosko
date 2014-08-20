@@ -11,19 +11,11 @@ var kiosko = function() {
 	}
 
 	this.init = function() {
-		$.getJSON('json/personas.json', function(data) {
-			json.persons = data;
-		});
-
-		$.getJSON('json/productos.json', function(data) {
-			json.products = data;
-		});
-
-		//console.log(json.transactions[0]);
+		self.getPersons();
+		self.getProducts();
 
 		self.home();
 	}
-
 
 	this.home = function() {
 		state = 1;
@@ -43,10 +35,11 @@ var kiosko = function() {
 
 					if (!self.__isValidDocument(documento.val())) {
 						alert('Documento inválido');
+						documento.val('');
+						return false;
 					}
 
 					person = json.persons[documento.val()];
-					//console.log(person);
 					self.voucher();
 				}
 			});
@@ -85,6 +78,8 @@ var kiosko = function() {
 
 					if (!self.__isValidProduct(codigo_producto.val())) {
 						alert('El producto no existe');
+						codigo_producto.val('');
+						return false;
 					}
 
 					self.addProduct(codigo_producto.val());
@@ -116,6 +111,119 @@ var kiosko = function() {
 
 		cart = json.transactions.length;
 	}
+
+
+
+/*!
+ * Método para cancelar la compra
+ * 
+ * Este método es llamado cuando se presiona la tecla ENTER
+ * 
+ * @author vsanmartin
+ * @since 2014-08-19
+ * @return boolead 
+ */
+	this.cancel = function() {
+		if (state != 2) return false;
+
+		if (confirm('¿Estás seguro de cancelar tu compra?')) {
+			json.transactions.splice(cart, 1);
+			cart--;
+			self.home();
+		}
+
+		return true;
+	}
+
+/*!
+ * Cuando se confirma la compra se llama este método
+ *
+ * Método accesible vía 
+ * 	Tecla SPACE
+ * 	15s de iddle
+ * 	Cuando escaneen otro RUT
+ * 
+ * @author vsanmartin
+ * @since 2014-08-19
+ * @return void
+ */
+	this.confirm = function() {
+		if (state != 2) return false;
+
+		self.home();
+	}
+
+/*!
+ * Envía todas las transacciones generadas al servidor para su registro
+ * 
+ * @author vsanmartin
+ * @since 2014-08-19
+ * @return void
+ */
+	this.sendCarts = function() {
+		if (json.transactions.length > 0 && state == 1) {
+			$.ajax({
+				url: 'algo.php',
+				cache: false,
+				method: 'POST',
+				data: { transactions: json.transactions },
+				complete: function() {
+					json.transactions = [];
+					cart = 0;
+
+					setTimeout(function() {
+						self.sendCarts();
+					}, 5000);
+				}
+			});
+
+			return;
+		}
+
+		setTimeout(function() {
+			self.sendCarts();
+		}, 5000);
+	}
+	this.sendCarts();
+
+/*!
+ * Actualiza el json de personas
+ *
+ * Se actualiza cada 1d
+ * 
+ * @author vsanmartin
+ * @since 2014-08-19
+ * @return void
+ */
+	this.getPersons = function() {
+		$.getJSON('json/personas.json', function(data) {
+			json.persons = data;
+
+			setTimeout(function() {
+				self.getPersons();
+			}, (1000 * 60 * 60 * 24));
+		});
+	}
+
+/*!
+ * Actualiza el json de productos
+ *
+ * Se actualiza cada 1m
+ * 
+ * @author vsanmartin
+ * @since 2014-08-19
+ * @return void
+ */
+	this.getProducts = function() {
+		$.getJSON('json/productos.json', function(data) {
+			json.products = data;
+
+			setTimeout(function() {
+				self.getProducts();
+			}, (1000 * 60));
+		});
+	}
+
 
 	self.init();
 };

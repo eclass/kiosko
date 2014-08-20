@@ -21,19 +21,20 @@ h1{
 .container .list{
 	background-color: rgba(255,255,255,0.8);
 	padding: 30px;
-	height: 300px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
 	text-align: center;
+	font-size: 28px;
 }
+
 .container .list i.fa-barcode{
 	font-size: 60px;
 }
 .container .list table{
 	text-align: left;
 }
-.container .list table a{
+.container .list .productos a{
 	color: #BD0102;
 	font-size: 20px;
 }
@@ -43,3 +44,23 @@ h1{
 .container .list .total div{
 	margin-left: 100px;
 }
+.container .list .keyboards{
+	text-align: left;
+	padding: 10px;
+	border: 1px solid #F9F9F9;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	margin-top: 50px;
+}
+
+.productos .title{
+	font-weight: bold
+}
+.productos .row{
+	padding: 10px 0;
+}
+.productos .row:nth-child(even) {
+	background-color: #F9F9F9
+}
+
