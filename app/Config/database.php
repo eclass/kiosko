@@ -67,14 +67,15 @@ class DATABASE_CONFIG {
 	public $default = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'user',
-		'password' => 'password',
-		'database' => 'database_name',
+		'host' => '192.168.10.34',
+		'login' => 'sgonzalez',
+		'password' => 'AQC4mY2ypA4jZ6ae',
+		'database' => 'kiskeclass',
 		'prefix' => '',
-		//'encoding' => 'utf8',
+		'encoding' => 'utf8'
 	);
 
+	/*
 	public $test = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
@@ -85,4 +86,5 @@ class DATABASE_CONFIG {
 		'prefix' => '',
 		//'encoding' => 'utf8',
 	);
+	*/
 }
