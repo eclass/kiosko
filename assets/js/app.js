@@ -54,6 +54,48 @@ var kiosko = function() {
 		});
 
 		self.home();
+		self.initEvents();
+	}
+
+/*!
+ * Se atachan los eventos a los inputs
+ * 
+ * @author vsanmartin
+ * @since 2014-08-20
+ * @return void
+ */
+	this.initEvents = function() {
+		$('input#passport').on('keypress', function(e) {
+			var code = e.keyCode || e.which;
+			if (code == 13) {
+				var passport = $('input#passport');
+				self.login(passport);
+			}
+		});
+
+		$('#product_code').on('keypress', function(e) {
+			var code = e.keyCode || e.which;
+			if (code == 13) {
+				var codigo_producto = $('#product_code');
+				if (!codigo_producto.val()) {
+					alert('Acerca un producto');
+					return false;
+				}
+
+				if (self.__isValidDocument(codigo_producto.val())) {
+					self.login(codigo_producto);
+					return;
+				}
+
+				if (!self.__isValidProduct(codigo_producto.val())) {
+					alert('El producto no existe');
+					codigo_producto.val('');
+					return false;
+				}
+
+				self.addProduct(codigo_producto.val());
+			}
+		});
 	}
 
 /*!
@@ -81,31 +123,32 @@ var kiosko = function() {
 			$('#home').fadeIn();
 		}
 
-		$('input#passport')
-			.val('')
-			.on('keypress', function(e) {
-				var code = e.keyCode || e.which;
-				if (code == 13) {
-					var passport = $('input#passport');
-					if (!passport.val()) {
-						alert('Incluya algo');
+		$('input#passport').val('');
+	}
 
-						return false;
-					}
+/*!
+ * Método que valida el documento y activa el carro de compras
+ * 
+ * @author vsanmartin
+ * @since 2014-08-20
+ * @param Object input
+ * @return boolean
+ */
+	this.login = function(passport) {
+		if (!passport.val()) {
+			alert('Incluya algo');
+			return false;
+		}
 
-					if (!self.__isValidDocument(passport.val())) {
-						alert('Documento inválido');
+		if (!self.__isValidDocument(passport.val())) {
+			alert('Documento inválido');
+			passport.val('');
+			return false;
+		}
 
-						passport.val('');
-
-						return false;
-					}
-
-					person = json.persons[passport.val()];
-					
-					self.cart();
-				}
-			});
+		person = json.persons[passport.val()];
+		self.cart();
+		return true;
 	}
 
 /*!
@@ -143,32 +186,6 @@ var kiosko = function() {
 		$('#home').fadeOut(function() {
 			$('#cart').fadeIn();
 			$('#product_code').focus();
-		});
-
-		$('#product_code').on('keypress', function(e) {
-			var code = e.keyCode || e.which;
-			if (code == 13) {
-				var codigo_producto = $('#product_code');
-				if (!codigo_producto.val()) {
-					alert('Acerca un producto');
-
-					return false;
-				}
-
-				/*if (passport.match('/RUT/g')) {
-					self.cancel();
-				}*/
-
-				if (!self.__isValidProduct(codigo_producto.val())) {
-					alert('El producto no existe');
-
-					codigo_producto.val('');
-
-					return false;
-				}
-
-				self.addProduct(codigo_producto.val());
-			}
 		});
 	}
 
