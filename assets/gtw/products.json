@@ -1,0 +1,42 @@
+{
+	"7792700996938": {
+		"id":1,
+		"name":"Plumon Pelican Negro",
+		"code":"7792700996938",
+		"price":780,
+		"description":"Lorem ipsum",
+		"stock":30
+	},
+	"7802000002557": {
+		"id":2,
+		"name":"Papa Frita Evercrisp",
+		"code":"7802000002557",
+		"price":150,
+		"description":"Lorem",
+		"stock":200
+	},
+	"7802820700053": {
+		"id":3,
+		"name":"Jugo Andina 1lt",
+		"code":"7802820700053",
+		"price":200,
+		"description":"Lorem ipsum",
+		"stock":200
+	},
+	"7801610671061": {
+		"id":4,
+		"name":"Bebida Fanta 1.5lt",
+		"code":"7801610671061",
+		"price":500,
+		"description":"Lorem ipsum",
+		"stock":200
+	},
+	"78016293": {
+		"id":4,
+		"name":"Cigarros Lucky Click",
+		"code":"78016293",
+		"price":500,
+		"description":"Lorem ipsum",
+		"stock":200
+	}
+}

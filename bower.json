@@ -1,0 +1,24 @@
+{
+  "name": "kiosko-eclass",
+  "version": "0.0.1",
+  "homepage": "https://github.com/eclass/kiosko",
+  "authors": [
+    "Juan Pablo <m.juanpablob@gmail.com>"
+  ],
+  "description": "Kiosko para eClass",
+  "main": "assets/js/app.js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.2.0",
+    "font-awesome": "~4.1.0"
+  }
+}

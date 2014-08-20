@@ -4,25 +4,97 @@
 		<meta charset="UTF-8">
 		<title>Kiosko eClass</title>
 
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/estilo.css">
+		<link rel="stylesheet" href="assets/vendor/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="assets/css/app.css">
 
-		<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/app.js"></script>
+		<script src="assets/vendor/jquery/dist/jquery.min.js"></script>
+		<script src="assets/js/app.js"></script>
 	</head>
 	<body>
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
-					<div class="logo">
-						<img src="img/logo.png" alt="">
+					<div class="logo text-center">
+						<img src="assets/img/logo.png" alt="">
 					</div>
 				</div>
 			</div>
-			<div class="row home" rel="home">
-				<input type="text" id="document_number" placeholder="RUT"/>
-			</div>
+
+			<section id="home" class="row home">
+				<input type="text" id="passport" placeholder="RUT">
+			</section>
+			
+			<section id="cart">
+				<input type="text" id="product_code" class="">
+
+				<div class="list">
+					<div class="empty-list">
+						<h2>Acerca el producto al lector</h2>
+						<i class="fa fa-barcode"></i>
+					</div>
+
+					<div class="products to-show">
+						<div class="row title">
+							<div class="col-sm-8 text-left">Nombre</div>
+							<div class="col-sm-1">#</div>
+							<div class="col-sm-2">Precio</div>
+							<div class="col-sm-1"></div>
+						</div>
+						
+						<!--<div class="row">
+							<div class="col-sm-8 text-left">Papas Fritas 50gr.</div>
+							<div class="col-sm-1">1</div>
+							<div class="col-sm-2">$ 300</div>
+							<div class="col-sm-1"><a href="#"> <i class="fa fa-minus-square"></i></a></div>
+						</div>-->
+					</div>
+
+					<div class="totals to-show">
+						<div class="row">
+							<div class="col-sm-offset-7 col-sm-1"><b>Total: </b></div>
+							<div class="col-sm-4" data-kiosko="total">$0</div>
+						</div>
+					</div>
+
+					<div class="row to-show">
+						<div class="keyboards col-sm-7">
+							<div class="row">
+								<div class="col-sm-6">
+									<span class="label label-success">Barra Espaciadora</span>
+								</div>
+								<div class="col-sm-6">
+									Confirmar Compra
+								</div>
+							</div>
+							<!--<div class="row">
+								<div class="col-sm-6">
+									<span class="label label-info">Enter</span>
+								</div>
+								<div class="col-sm-6">
+									Agregar otro Producto
+								</div>
+							</div>-->
+							<div class="row">
+								<div class="col-sm-6">
+									<span class="label label-warning">Backspace</span>
+								</div>
+								<div class="col-sm-6">
+									Eliminar producto
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<span class="label label-danger">Escape</span>
+								</div>
+								<div class="col-sm-6">
+									Cancelar Compra
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 		</div>
 	</body>
 </html>
