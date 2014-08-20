@@ -1,16 +1,19 @@
 {
 	"17104134": {
 		"id": 1,
+		"rut": "17104134",
 		"nombre": "Juan Pablo Barrientos",
 		"email": "jbarrientos@eclass.cl"
 	},
 	"16076566": {
 		"id": 3,
+		"rut": "16076566",
 		"nombre": "Víctor San Martin",
 		"email": "victor@eclass.cl"
 	},
 	"17667409": {
 		"id": 2,
+		"rut": "17667409",
 		"nombre": "Sergio Barnachea",
 		"email": "sbarnachea@eclass.cl"
 	}
