@@ -42,6 +42,16 @@ var kiosko = function() {
 				self.cancel();
 			}
 		});
+		/*!
+		 * Atachamos el método deleteProduct cuando precione la tecla DELETE
+		 */
+		$(document).keydown(function(e){
+			var code = e.keyCode || e.which;
+			if (code == 8) {
+				e.preventDefault();
+				self.deleteProduct();
+			}
+		});
 
 		self.home();
 	}
