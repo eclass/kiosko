@@ -69,7 +69,9 @@ var kiosko = function() {
 
 		if ($('#carro').is(':visible')) {
 			$('#carro').fadeOut(function() {
-				$('#credencial').fadeIn();
+				$('#credencial').fadeIn(function() {
+					$('input#rut').focus().val('');
+				});
 			});
 		}
 		else {
@@ -336,6 +338,27 @@ var kiosko = function() {
 		}, 1000);
 	}
 	self.idleTime();
+
+/*!
+ * Mantiene el foco siempre en el input correcto de acuerdo al estado
+ * 
+ * @author vsanmartin
+ * @since 2014-08-19
+ * @return void
+ */
+	this.autoFocus = function() {
+		if (state == 1) {
+			$('input#rut').focus();
+		}
+		else if (state == 2) {
+			$('#codigo_producto').focus();
+		}
+
+		setTimeout(function() {
+			self.autoFocus();
+		}, 500);
+	}
+	self.autoFocus();
 
 
 	self.init();
