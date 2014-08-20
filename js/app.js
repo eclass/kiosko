@@ -15,6 +15,13 @@ var kiosko = function() {
 		]
 	}
 
+/*!
+ * inicio de la magia
+ * 
+ * @author vsanmartin
+ * @since 2014-08-19
+ * @return void
+ */
 	this.init = function() {
 		self.getPersons();
 		self.getProducts();
@@ -22,6 +29,13 @@ var kiosko = function() {
 		self.home();
 	}
 
+/*!
+ * Muestra la primera pantalla donde la persona ingresa su rut
+ * 
+ * @author vsanmartin
+ * @since 2014-08-19
+ * @return void
+ */
 	this.home = function() {
 		$('#credencial').fadeIn();
 
@@ -47,6 +61,14 @@ var kiosko = function() {
 			});
 	}
 
+/*!
+ * Valida si el numero documento es correcto
+ * 
+ * @author vsanmartin
+ * @since 2014-08-19
+ * @param string documento Número de documento (RUT)
+ * @return boolean
+ */
 	this.__isValidDocument = function(documento) {
 		documento = documento.replace(/[^0-9kK]+/g,'').toUpperCase();
 
