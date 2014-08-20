@@ -147,6 +147,7 @@ var kiosko = function() {
 
 		person = json.persons[passport.val()];
 		self.cart();
+		passport.val('');
 		return true;
 	}
 
@@ -183,6 +184,9 @@ var kiosko = function() {
 		$('div[data-kiosko="total"]').html('0');
 		$('.to-show').hide();
 		$('.empty-list').show();
+		
+		total = 0;
+		person = {};
 	}
 
 /*!
