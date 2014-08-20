@@ -2,15 +2,14 @@ var kiosko = function() {
 	var self = this,
 		state = 0,
 		cart = 0,
+		total = 0,
 		person = {},
 		idle = 10,
-		total = 0;
-
-	var json = {
-		persons: {},
-		products: {},
-		transactions: []
-	}
+		json = {
+			persons: {},
+			products: {},
+			transactions: []
+		};
 
 /*!
  * inicio de la magia
@@ -44,7 +43,7 @@ var kiosko = function() {
 			}
 		});
 		/*!
-		 * Atachamos el método deleteProduct cuando precione la tecla DELETE(8)
+		 * Atachamos el método deleteProduct cuando precione la tecla BACKSPACE(8)
 		 */
 		$(document).keydown(function(e){
 			var code = e.keyCode || e.which;
@@ -95,6 +94,7 @@ var kiosko = function() {
 					}
 
 					person = json.persons[documento.val()];
+					
 					self.voucher();
 				}
 			});
@@ -121,7 +121,13 @@ var kiosko = function() {
 		return true;
 	}
 
-
+/*!
+ * Muestra la segunda pantalla donde se registran los productos
+ * 
+ * @author juanpablob
+ * @since 2014-08-19
+ * @return void
+ */
 	this.voucher = function() {
 		state = 2;
 		self.createCart();
@@ -151,6 +157,14 @@ var kiosko = function() {
 		});
 	}
 
+/*!
+ * Valida si el producto ingresado existe en el stock
+ * 
+ * @author vsanmartin
+ * @since 2014-08-19
+ * @param string código de producto
+ * @return boolean
+ */
 	this.__isValidProduct = function(product_code) {
 		if (typeof json.products[product_code] === 'undefined') {
 			return false;
@@ -159,6 +173,14 @@ var kiosko = function() {
 		return true;
 	}
 
+/*!
+ * Registra el producto en la transacción, actualiza el total de la compra y agrega el producto en la vista
+ * 
+ * @author juanpablob
+ * @since 2014-08-19
+ * @param string código de producto
+ * @return void
+ */
 	this.addProduct = function(product_code) {
 		json.transactions[cart].products.push(product_code);
 
@@ -170,6 +192,13 @@ var kiosko = function() {
 		$('tfoot span').html(total);
 	}
 
+/*!
+ * Elimina el producto en la transacción, actualiza el total de la compra y quita el producto en la vista
+ * 
+ * @author juanpablob
+ * @since 2014-08-19
+ * @return void
+ */
 	this.deleteProduct = function() {
 		var last_product = json.transactions[cart].products.length -1;
 		last_product = json.transactions[cart].products[last_product];
@@ -189,6 +218,13 @@ var kiosko = function() {
 		total = total - json.products[product_code].precio;*/
 	}
 
+/*!
+ * Elimina el producto en la transacción, actualiza el total de la compra y quita el producto en la vista
+ * 
+ * @author juanpablob
+ * @since 2014-08-19
+ * @return void
+ */
 	this.createCart = function() {
 		json.transactions.push({
 			person_id: person.id,
