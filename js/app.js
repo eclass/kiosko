@@ -79,6 +79,8 @@ var kiosko = function() {
 
 					if (!self.__isValidProduct(codigo_producto.val())) {
 						alert('El producto no existe');
+						codigo_producto.val('');
+						return false;
 					}
 
 					alert('wena choro');
