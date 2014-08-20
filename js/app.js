@@ -67,7 +67,7 @@ var kiosko = function() {
 	this.home = function() {
 		state = 1;
 
-		if ($('#carro').is('visible')) {
+		if ($('#carro').is(':visible')) {
 			$('#carro').fadeOut(function() {
 				$('#credencial').fadeIn();
 			});
