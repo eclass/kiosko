@@ -3,7 +3,8 @@ var kiosko = function() {
 		state = 0,
 		cart = 0,
 		person = {},
-		idle = 10;
+		idle = 10,
+		total = 0;
 
 	var json = {
 		persons: {},
@@ -159,22 +160,22 @@ var kiosko = function() {
 	}
 
 	this.addProduct = function(product_code) {
-		var total = $('tfoot span').html();
-
 		json.transactions[cart].products.push(product_code);
 
 		$('#codigo_producto').val('');
 		
 		$('tbody').append('<tr><td>' + json.products[product_code].nombre + '</td><td>1</td><td>' + json.products[product_code].precio + '</td></tr>');
 
-		total = total + json.products[product_code].precio;
+		total += parseInt(json.products[product_code].precio);
 		$('tfoot span').html(total);
 	}
 
 	this.deleteProduct = function() {
-		var total = $('tfoot span').html(),
-			last_product = json.transactions[cart].products.length -1;
-		total = total - json.transactions[cart].products[last_product].precio;
+		var last_product = json.transactions[cart].products.length -1;
+		last_product = json.transactions[cart].products[last_product];
+
+		total -= parseInt(json.products[last_product].precio);
+		//console.log('el total: ' + total);
 
 		json.transactions[cart].products.pop();
 
