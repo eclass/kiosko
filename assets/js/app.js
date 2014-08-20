@@ -148,6 +148,7 @@ var kiosko = function() {
 		person = json.persons[passport.val()];
 		self.cart();
 		passport.val('');
+		$('p.nombre span').text(person.name);
 		return true;
 	}
 
