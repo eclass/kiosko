@@ -47,7 +47,7 @@ var kiosko = function() {
 		 */
 		$(document).keydown(function(e){
 			var code = e.keyCode || e.which;
-			if (code == 8) {
+			if (code == 8 && state == 2) {
 				e.preventDefault();
 				self.deleteProduct();
 			}
