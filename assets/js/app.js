@@ -255,7 +255,10 @@ var kiosko = function() {
 		last_product = json.transactions[cart].products[last_product];
 
 		total -= parseInt(json.products[last_product].price);
-
+		if(total == 0){
+			$('.to-show').hide();
+			$('.empty-list').show();
+		}
 		json.transactions[cart].products.pop();
 
 		$('.products .row:last-child').remove();
