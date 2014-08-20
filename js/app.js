@@ -38,6 +38,8 @@ var kiosko = function() {
 
 					if (!self.__isValidDocument(documento.val())) {
 						alert('Documento inválido');
+						documento.val('');
+						return false;
 					}
 
 					self.voucher();
