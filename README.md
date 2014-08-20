@@ -22,14 +22,14 @@ Branchs:
 * Se cambió la variable documento por passport en JS
 
 ### TODO
-* [] Agregar el nombre de la persona
-* [] Mostrar input del codigo de barra del producto, con el fin de ver alguna interración
-* [] Si un producto se agrega dos veces, aparece dos veces, la columa # (cantidad) sobra
-* [] Input de RUT ampliar, no se ve el rut completo
-* [] Validar que existan productos en el carro cuando se elimina un producto con la tecla DELETE
-* [] Revisar que se actualice el valor cuando se eliminan productos
-* [] Agregar botón cancelar y confirmar (pensando en monitores touch)
-* [x] Cuando cambia de usuario no se refresca el valor total
+- [ ] Agregar el nombre de la persona
+- [ ] Mostrar input del codigo de barra del producto, con el fin de ver alguna interración
+- [ ] Si un producto se agrega dos veces, aparece dos veces, la columa # (cantidad) sobra
+- [ ] Input de RUT ampliar, no se ve el rut completo
+- [ ] Validar que existan productos en el carro cuando se elimina un producto con la tecla DELETE
+- [ ] Revisar que se actualice el valor cuando se eliminan productos
+- [ ] Agregar botón cancelar y confirmar (pensando en monitores touch)
+- [x] Cuando cambia de usuario no se refresca el valor total
 
 ### VERSION
 0.1.1
