@@ -108,12 +108,21 @@ var kiosko = function() {
 		total = total + json.products[product_code].precio;
 	}
 
-	this.deleteProduct = function(product_code) {
-		var total = $('tfoot span').html();
+	this.deleteProduct = function() {
+		var total = $('tfoot span').html(),
+			last_product = json.transactions[cart].products.length -1;
+		total = total - json.transactions[cart].products[last_product].precio;
+
+		json.transactions[cart].products.pop();
+
+		$('tbody tr:last-child').remove();
+		$('tfoot span').html(total);
+
+		/*var total = $('tfoot span').html();
 
 		$('tbody tr:last-child').remove();
 
-		total = total - json.products[product_code].precio;
+		total = total - json.products[product_code].precio;*/
 	}
 
 	this.createCart = function() {
