@@ -53,8 +53,9 @@ var kiosko = function() {
 			}
 		});
 
-		self.home();
+
 		self.initEvents();
+		self.home();
 	}
 
 /*!
@@ -83,6 +84,7 @@ var kiosko = function() {
 				}
 
 				if (self.__isValidDocument(codigo_producto.val())) {
+					self.resetCart();
 					self.login(codigo_producto);
 					return;
 				}
@@ -107,10 +109,7 @@ var kiosko = function() {
  */
 	this.home = function() {
 		state = 1;
-
-		$('.products .product').remove();
-		$('div[data-kiosko="total"]').html('0');
-		$('.to-show').hide();
+		self.resetCart();
 
 		if ($('#cart').is(':visible')) {
 			$('#cart').fadeOut(function() {
@@ -170,6 +169,19 @@ var kiosko = function() {
 		}
 
 		return true;
+	}
+
+/*!
+ * Limpia el carro de compras
+ * 
+ * @author vsanmartin
+ * @since 2014-08-20
+ * @return void
+ */
+	this.resetCart = function() {
+		$('.products .product').remove();
+		$('div[data-kiosko="total"]').html('0');
+		$('.to-show').hide();
 	}
 
 /*!
