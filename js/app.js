@@ -21,6 +21,25 @@ var kiosko = function() {
 		self.getPersons();
 		self.getProducts();
 
+		/*!
+		 * Atachamos el método confirm cuando presione la tecla SPACE(32)
+		 */
+		$(document).keypress(function(e) {
+			var code = e.keyCode || e.which;
+			if (code == 32 && state == 2) {
+				self.confirm();
+			}
+		});
+		/*!
+		 * Atachamos el método cancel cuando precione la tecla ESC(27)
+		 */
+		$(document).keyup(function(e) {
+			var code = e.keyCode || e.which;
+			if (code == 27 && state == 2) {
+				self.cancel();
+			}
+		});
+
 		self.home();
 	}
 
@@ -38,6 +57,7 @@ var kiosko = function() {
 
 		$('input#rut')
 			.focus()
+			.val('')
 			.on('keypress', function(e) {
 				var code = e.keyCode || e.which;
 				if (code == 13) {
