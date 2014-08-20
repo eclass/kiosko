@@ -2,7 +2,8 @@ var kiosko = function() {
 	var self = this,
 		state = 0,
 		cart = 0,
-		person = {};
+		person = {},
+		idle = 10;
 
 	var json = {
 		persons: {},
@@ -25,6 +26,7 @@ var kiosko = function() {
 		 * Atachamos el método confirm cuando presione la tecla SPACE(32)
 		 */
 		$(document).keypress(function(e) {
+			idle = 10;
 			var code = e.keyCode || e.which;
 			if (code == 32 && state == 2) {
 				self.confirm();
@@ -34,6 +36,7 @@ var kiosko = function() {
 		 * Atachamos el método cancel cuando precione la tecla ESC(27)
 		 */
 		$(document).keyup(function(e) {
+			idle = 10;
 			var code = e.keyCode || e.which;
 			if (code == 27 && state == 2) {
 				self.cancel();
@@ -182,7 +185,7 @@ var kiosko = function() {
  *
  * Método accesible vía 
  * 	Tecla SPACE
- * 	15s de iddle
+ * 	10s de iddle
  * 	Cuando escaneen otro RUT
  * 
  * @author vsanmartin
@@ -226,7 +229,7 @@ var kiosko = function() {
 			self.sendCarts();
 		}, 5000);
 	}
-	this.sendCarts();
+	self.sendCarts();
 
 /*!
  * Actualiza el json de personas
@@ -265,6 +268,33 @@ var kiosko = function() {
 			}, (1000 * 60));
 		});
 	}
+
+/*!
+ * Control de inactividad
+ *
+ * Si el usuario tiene mas de 10s de inactividad se toma como confirmada la compra
+ * @author vsanmartin
+ * @since 2014-08-19
+ * @return void
+ */
+	this.idleTime = function() {
+		if (state == 2) {
+			idle--;
+
+			if (idle <= 0) {
+				self.confirm();
+				idle = 10;
+			}
+		}
+		else {
+			idle = 10;
+		}
+
+		setTimeout(function() {
+			self.idleTime();
+		}, 1000);
+	}
+	self.idleTime();
 
 
 	self.init();
