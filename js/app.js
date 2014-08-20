@@ -2,7 +2,8 @@ var kiosko = function() {
 	var self = this,
 		state = 0,
 		cart = 0,
-		person = {};
+		person = {},
+		idle = 10;
 
 	var json = {
 		persons: {},
@@ -10,13 +11,58 @@ var kiosko = function() {
 		transactions: []
 	}
 
+/*!
+ * inicio de la magia
+ * 
+ * @author vsanmartin
+ * @since 2014-08-19
+ * @return void
+ */
 	this.init = function() {
 		self.getPersons();
 		self.getProducts();
 
+		/*!
+		 * Atachamos el método confirm cuando presione la tecla SPACE(32)
+		 */
+		$(document).keypress(function(e) {
+			idle = 10;
+			var code = e.keyCode || e.which;
+			if (code == 32 && state == 2) {
+				self.confirm();
+			}
+		});
+		/*!
+		 * Atachamos el método cancel cuando precione la tecla ESC(27)
+		 */
+		$(document).keyup(function(e) {
+			idle = 10;
+			var code = e.keyCode || e.which;
+			if (code == 27 && state == 2) {
+				self.cancel();
+			}
+		});
+		/*!
+		 * Atachamos el método deleteProduct cuando precione la tecla DELETE
+		 */
+		$(document).keydown(function(e){
+			var code = e.keyCode || e.which;
+			if (code == 8) {
+				e.preventDefault();
+				self.deleteProduct();
+			}
+		});
+
 		self.home();
 	}
 
+/*!
+ * Muestra la primera pantalla donde la persona ingresa su rut
+ * 
+ * @author vsanmartin
+ * @since 2014-08-19
+ * @return void
+ */
 	this.home = function() {
 		state = 1;
 
@@ -24,6 +70,7 @@ var kiosko = function() {
 
 		$('input#rut')
 			.focus()
+			.val('')
 			.on('keypress', function(e) {
 				var code = e.keyCode || e.which;
 				if (code == 13) {
@@ -45,6 +92,14 @@ var kiosko = function() {
 			});
 	}
 
+/*!
+ * Valida si el numero documento es correcto
+ * 
+ * @author vsanmartin
+ * @since 2014-08-19
+ * @param string documento Número de documento (RUT)
+ * @return boolean
+ */
 	this.__isValidDocument = function(documento) {
 		documento = documento.replace(/[^RUT0-9kK]+/g,'').toUpperCase();
 
@@ -162,7 +217,7 @@ var kiosko = function() {
  *
  * Método accesible vía 
  * 	Tecla SPACE
- * 	15s de iddle
+ * 	10s de iddle
  * 	Cuando escaneen otro RUT
  * 
  * @author vsanmartin
@@ -206,7 +261,7 @@ var kiosko = function() {
 			self.sendCarts();
 		}, 5000);
 	}
-	this.sendCarts();
+	self.sendCarts();
 
 /*!
  * Actualiza el json de personas
@@ -245,6 +300,33 @@ var kiosko = function() {
 			}, (1000 * 60));
 		});
 	}
+
+/*!
+ * Control de inactividad
+ *
+ * Si el usuario tiene mas de 10s de inactividad se toma como confirmada la compra
+ * @author vsanmartin
+ * @since 2014-08-19
+ * @return void
+ */
+	this.idleTime = function() {
+		if (state == 2) {
+			idle--;
+
+			if (idle <= 0) {
+				self.confirm();
+				idle = 10;
+			}
+		}
+		else {
+			idle = 10;
+		}
+
+		setTimeout(function() {
+			self.idleTime();
+		}, 1000);
+	}
+	self.idleTime();
 
 
 	self.init();
