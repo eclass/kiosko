@@ -1,9 +1,11 @@
 {
   "name": "kiosko-eclass",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "homepage": "https://github.com/eclass/kiosko",
   "authors": [
-    "Juan Pablo <m.juanpablob@gmail.com>"
+    "Juan Pablo <jbarrientos@eclass.cl>",
+    "Sergio Barnachea <sbarnachea@eclass.cl>",
+    "Victor San Martin <victor#eclass.cl>"
   ],
   "description": "Kiosko para eClass",
   "main": "assets/js/app.js",
@@ -14,7 +16,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "vendor"
   ],
   "dependencies": {
     "jquery": "~2.1.1",

@@ -26,3 +26,6 @@ Branchs:
 [] Mostrar input del codigo de barra del producto, con el fin de ver alguna interración
 [] Si un producto se agrega dos veces, aparece dos veces, la columa # (cantidad) sobra
 [] Input de RUT ampliar, no se ve el rut completo
+
+### VERSION
+0.1.1
