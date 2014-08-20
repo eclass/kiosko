@@ -32,4 +32,4 @@ Branchs:
 - [x] Cuando cambia de usuario no se refresca el valor total
 
 ### VERSION
-0.1.1
+0.1.2
