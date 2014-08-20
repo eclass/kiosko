@@ -168,6 +168,7 @@ var kiosko = function() {
 		$('tbody').append('<tr><td>' + json.products[product_code].nombre + '</td><td>1</td><td>' + json.products[product_code].precio + '</td></tr>');
 
 		total = total + json.products[product_code].precio;
+		$('tfoot span').html(total);
 	}
 
 	this.deleteProduct = function() {
