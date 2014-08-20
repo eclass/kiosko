@@ -1,37 +1,33 @@
 var kiosko = function() {
 	var self = this,
 		state = 0,
-		cart = 0;
+		cart = 0,
+		person = {};
 
 	var json = {
 		persons: {},
 		products: {},
-		transactions: [
-			{
-				products: ['00005543', '94273498'],
-				person_id: 56,
-				created: 054945394
-			}
-		]
+		transactions: []
 	}
 
 	this.init = function() {
 		$.getJSON('json/personas.json', function(data) {
 			json.persons = data;
-			//console.log(json);
 		});
 
 		$.getJSON('json/productos.json', function(data) {
 			json.products = data;
 		});
 
-		console.log(json.transactions[0]);
+		//console.log(json.transactions[0]);
 
 		self.home();
 	}
 
 
 	this.home = function() {
+		state = 1;
+
 		$('#credencial').fadeIn();
 
 		$('input#rut')
@@ -49,6 +45,8 @@ var kiosko = function() {
 						alert('Documento inválido');
 					}
 
+					person = json.persons[documento.val()];
+					//console.log(person);
 					self.voucher();
 				}
 			});
@@ -69,13 +67,14 @@ var kiosko = function() {
 
 
 	this.voucher = function() {
+		self.createCart();
+
 		$('#credencial').fadeOut(function() {
 			$('#carro').fadeIn();
+			$('#codigo_producto').focus();
 		});
 
-		$('#codigo_producto')
-			.focus()
-			.on('keypress', function(e) {
+		$('#codigo_producto').on('keypress', function(e) {
 				var code = e.keyCode || e.which;
 				if (code == 13) {
 					var codigo_producto = $('#codigo_producto');
@@ -88,7 +87,7 @@ var kiosko = function() {
 						alert('El producto no existe');
 					}
 
-					alert('wena choro');
+					self.addProduct(codigo_producto.val());
 				}
 			});
 	}
@@ -99,6 +98,23 @@ var kiosko = function() {
 		}
 
 		return true;
+	}
+
+	this.addProduct = function(product_code) {
+		json.transactions[cart -1].products.push(product_code);
+
+		$('#codigo_producto').val('');
+		
+		$('tbody').append('<tr><td>' + json.products[product_code].nombre + '</td><td>1</td><td>' + json.products[product_code].precio + '</td></tr>');
+	}
+
+	this.createCart = function() {
+		json.transactions.push({
+			person_id: person.id,
+			products: []
+		});
+
+		cart = json.transactions.length;
 	}
 
 	self.init();
