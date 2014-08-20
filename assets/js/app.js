@@ -183,6 +183,8 @@ var kiosko = function() {
 		$('.products .product').remove();
 		$('div[data-kiosko="total"]').html('0');
 		$('.to-show').hide();
+		$('.empty-list').show();
+		
 		total = 0;
 		person = {};
 	}
@@ -231,6 +233,7 @@ var kiosko = function() {
 	this.addProduct = function(product_code) {
 		if ($.isEmptyObject(json.transactions[cart].products)) {
 			$('.to-show').fadeIn();
+			$('.empty-list').hide();
 		}
 
 		json.transactions[cart].products.push(product_code);
