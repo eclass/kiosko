@@ -108,9 +108,9 @@ var kiosko = function() {
  * @return boolean
  */
 	this.__isValidDocument = function(documento) {
-		documento = documento.replace(/[^0-9kK]+/g,'').toUpperCase();
+		documento = documento.replace(/[^RUT0-9kK]+/g,'').toUpperCase();
 
-		if (documento.length < 7) {
+		if (documento.length < 10) {
 			return false;
 		}
 		if (typeof json.persons[documento] === 'undefined') {
@@ -122,6 +122,7 @@ var kiosko = function() {
 
 
 	this.voucher = function() {
+		state = 2;
 		self.createCart();
 
 		$('#credencial').fadeOut(function() {
@@ -158,11 +159,32 @@ var kiosko = function() {
 	}
 
 	this.addProduct = function(product_code) {
-		json.transactions[cart -1].products.push(product_code);
+		var total = $('tfoot span').html();
+
+		json.transactions[cart].products.push(product_code);
 
 		$('#codigo_producto').val('');
 		
 		$('tbody').append('<tr><td>' + json.products[product_code].nombre + '</td><td>1</td><td>' + json.products[product_code].precio + '</td></tr>');
+
+		total = total + json.products[product_code].precio;
+	}
+
+	this.deleteProduct = function() {
+		var total = $('tfoot span').html(),
+			last_product = json.transactions[cart].products.length -1;
+		total = total - json.transactions[cart].products[last_product].precio;
+
+		json.transactions[cart].products.pop();
+
+		$('tbody tr:last-child').remove();
+		$('tfoot span').html(total);
+
+		/*var total = $('tfoot span').html();
+
+		$('tbody tr:last-child').remove();
+
+		total = total - json.products[product_code].precio;*/
 	}
 
 	this.createCart = function() {
@@ -171,7 +193,7 @@ var kiosko = function() {
 			products: []
 		});
 
-		cart = json.transactions.length;
+		cart = json.transactions.length -1;
 	}
 
 
