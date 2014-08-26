@@ -1,7 +1,7 @@
 <?php
 class Reposition extends Model {
 
-	public $belongTo = array(
+	public $belongsTo = array(
 		'Product' => array(
 			'foreignKey' => 'id_product'
 		),

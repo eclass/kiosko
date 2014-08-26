@@ -58,6 +58,3 @@ echo $this->Session->flash();
 	}
 ?>
 </table>
-<?php
-pr($products);
-?>

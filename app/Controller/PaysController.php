@@ -75,7 +75,6 @@ class PaysController extends AppController {
 				'conditions' => array('Person.id' => $idPersona)
 			));
 			//Bloquear input!
-			pr($person);
 
 			$this->request->data['Pay']['Person'] = $person['Person'];
 		}
