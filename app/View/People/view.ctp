@@ -75,5 +75,4 @@ if(!empty($person['Transaction'])){ ?>
 else{
 	echo '<p>Sin compras realizadas</p>';
 }
-pr($person);
 ?>

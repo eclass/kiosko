@@ -1,5 +1,4 @@
 <?php
-pr($repositions);
 echo $this->Session->flash();
 ?>
 <?php
@@ -13,7 +12,7 @@ echo $this->Session->flash();
 <br />
 <table>
 	<tr>
-		<th>Repositiono</th>
+		<th>Producto</th>
 		<th>Fecha</th>
 		<th>Cantidad</th>
 		<th>&nbsp;</th>

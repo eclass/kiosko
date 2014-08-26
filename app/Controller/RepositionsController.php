@@ -10,48 +10,46 @@ class RepositionsController extends AppController {
    	}
 
 	public function add($id = null, $idProduct = null){
-		/*
 		if(!empty($this->request->data)){
 			if(isset($id) && $id != 0){
-				$this->Pay->id = $id;
-				$action = 'modificado';
+				$this->Reposition->id = $id;
+				$action = 'modificada';
 			}
 			else{
-				$this->Pay->id = null;
-				$action = 'agregado';
+				$this->Reposition->id = null;
+				$action = 'agregada';
 			}
-			$rut = $this->request->data['Pay']['Person']['rut'];
-			$person = $this->Pay->Person->find('first', array(
-				'fields' => array('debt'),
-				'conditions' => array('Person.rut' => $this->request->data['Pay']['Person']['rut'])
+			$name = $this->request->data['Reposition']['Product']['name'];
+			$product = $this->Reposition->Product->find('first', array(
+				'fields' => array('stock'),
+				'conditions' => array('Product.name' => $this->request->data['Reposition']['Product']['name'])
 			));
-			if(!empty($person)){
-				//setea id de persona y elimina data persona del pago
-				$this->request->data['Pay']['id_person'] = $person['Person']['id'];
-				unset($this->request->data['Pay']['Person']);
-				$this->request->data['Pay']['date'] = date('Y-m-d H:i:s');
+			if(!empty($product)){
+				//setea id de producto y elimina data product de reposición
+				$this->request->data['Reposition']['id_product'] = $product['Product']['id'];
+				unset($this->request->data['Reposition']['Product']);
+				$this->request->data['Reposition']['date'] = date('Y-m-d H:i:s');
 
-				if($this->Pay->save($this->request->data)){
+				if($this->Reposition->save($this->request->data)){
 
-					//Actualizar deuda de la persona
-					$person['Person']['debt'] -= $this->request->data['Pay']['amount'];
-					$this->Pay->Person->save($person);
+					//Actualizar stock del prducto
+					$product['Product']['stock'] += $this->request->data['Reposition']['cantity'];
+					$this->Reposition->Product->save($product);
 
-					$this->Session->setFlash('Pago ' . $action . ' exitosamente'/*, 'success'/);
+					$this->Session->setFlash('Reposición ' . $action . ' exitosamente'/*, 'success'*/);
 					$this->redirect(array('action' => 'index'));
 				}
 				else{
-					$this->Session->setFlash('Error al guardar el pago'/*, 'failure'/);
-					//recupera el rut al input
-					$this->request->data['Pay']['Person']['rut'] = $rut;
+					$this->Session->setFlash('Error al guardar la reposición'/*, 'failure'*/);
+					//recupera el name al input
+					$this->request->data['Reposition']['Product']['name'] = $name;
 					//$this->redirect(array('action' => 'index'));
 				}
 			}
 			else{
-				$this->Session->setFlash('Persona no encontrada' /*, 'success' /);
+				$this->Session->setFlash('Producto no encontrado' /*, 'success' */);
 			}
 		}
-		*/
 
 		if(isset($id) && $id != 0){
 			$reposition = $this->Reposition->find('first', array(

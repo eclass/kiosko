@@ -29,7 +29,7 @@ echo $this->Html->link(
 <?php
 echo $this->Html->link(
 	'Agregar Reposición',
-	array('controller' => 'Repositions', 'action' => 'add', $product['Product']['id']),
+	array('controller' => 'Repositions', 'action' => 'add', 0, $product['Product']['id']),
 	array('class' => 'button', 'style' => 'float: right')
 );
 

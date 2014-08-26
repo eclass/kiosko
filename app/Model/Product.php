@@ -10,9 +10,10 @@ class Product extends Model {
 		)
 	);
 
-	public $hasAndBelongToMany = array(
+	public $hasAndBelongsToMany = array(
 		'Transaction' => array(
-			'foreignKey' => 'id_product'
+			'foreignKey' => 'id_product',
+			'associationForeignKey' => 'id_transaction'
 		)
 	);
 

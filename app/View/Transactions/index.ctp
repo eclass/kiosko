@@ -1,13 +1,6 @@
 <?php
 echo $this->Session->flash();
 ?>
-<?php
-	echo $this->Html->link(
-		'Agregar Pago',
-		array('controller' => 'pay', 'action' => 'add'),
-		array('class' => 'button')
-	);
-?>
 <br />
 <br />
 <table>
@@ -15,44 +8,34 @@ echo $this->Session->flash();
 		<th>Nombre</th>
 		<th>Rut</th>
 		<th>Fecha</th>
-		<th>Monto</th>
-		<th>&nbsp;</th>
-		<th>&nbsp;</th>
+		<th>Total</th>
+		<th>Ver Detalle</th>
 	</tr>
 	<?php
-	foreach($pays as $pay){ ?>
+	foreach($transactions as $transaction){ ?>
 		<tr>
 			<td>
 				<?php
 				echo $this->Html->link(
-					$pay['Person']['name'],
-					array('controller' => 'people', 'action' => 'view', $pay['Person']['id'])
+					$transaction['Person']['name'],
+					array('controller' => 'people', 'action' => 'view', $transaction['Person']['id'])
 				);
 				?>
 			</td>
 			<td>
-				<?php echo $pay['Person']['rut']; ?>
+				<?php echo $transaction['Person']['rut']; ?>
 			</td>
 			<td>
-				<?php echo $pay['Pay']['date']; ?>
+				<?php echo $transaction['Transaction']['date']; ?>
 			</td>
 			<td>
-				<?php echo $pay['Pay']['amount']; ?>
-			</td>
-			<td>
-				<?php
-				echo $this->Html->link(
-					'Editar',
-					array('controller' => 'people', 'action' => 'add', $pay['Pay']['id']),
-					array('class' => 'button')
-				);
-				?>
+				<?php echo $transaction['Transaction']['total']; ?>
 			</td>
 			<td>
 				<?php
 				echo $this->Html->link(
-					'Eliminar',
-					array('controller' => 'pay', 'action' => 'delete', $pay['Pay']['id']),
+					'Detalle',
+					array('controller' => 'transactions', 'action' => 'view', $transaction['Transaction']['id']),
 					array('class' => 'button')
 				);
 				?>
@@ -62,6 +45,3 @@ echo $this->Session->flash();
 	}
 ?>
 </table>
-<?php
-pr($people);
-?>
