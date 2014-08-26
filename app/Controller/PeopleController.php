@@ -65,5 +65,21 @@ class PeopleController extends AppController {
 		}
 		$this->redirect(array('action' => 'index'));
 	}
+
+	/**
+	* Reporte de deudores
+	*/
+	public function debtors() {
+
+		$debtors = $this->Person->find('all',array(
+			'conditions' => array(
+				'deleted' => 0,
+				'debt >' => 0
+			),
+			'order' => array('name' => 'asc')
+		));
+
+		$this->set('debtors', $debtors);
+	}
 }
 ?>
