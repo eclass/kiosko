@@ -2,11 +2,21 @@
 class ProductsController extends AppController {
 
 	public function index(){
-		$this->set('products', $this->Product->find('all', array(
-				'conditions' => array('deleted' => 0),
-				'order' => array('name' => 'asc')
-			))
-		);
+		if (!empty($this->request->data)) {
+			$this->set('products', $this->Product->find('all',array(
+				'conditions' => array(
+					'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%'
+				)
+			)
+			));
+
+		} else {
+			$this->set('products', $this->Product->find('all', array(
+					'conditions' => array('deleted' => 0),
+					'order' => array('name' => 'asc')
+				))
+			);
+		}
 	}
 
 	public function view($id = null){
@@ -65,5 +75,6 @@ class ProductsController extends AppController {
 		}
 		$this->redirect(array('action' => 'index'));
 	}
+
 }
 ?>
