@@ -1,43 +1,37 @@
-CakePHP
-=======
+kiosko
+======
 
-[![CakePHP](http://cakephp.org/img/cake-logo.png)](http://www.cakephp.org)
+Kiosko eClass
 
-CakePHP is a rapid development framework for PHP which uses commonly known design patterns like Active Record, Association Data Mapping, Front Controller and MVC.
-Our primary goal is to provide a structured framework that enables PHP users at all levels to rapidly develop robust web applications, without any loss to flexibility.
+Branchs:
+- Front
+- Backend
 
-Some Handy Links
-----------------
+### Changelog
+0.0.0
+* Se ordenaron las variables
+* Se actualizaron/ordenaron todos los comentarios de los métodos
+* Se modificaron los nombres de los archivos JSON y también sus propiedades, quedando toda la información del JSON en inglés y también los métodos
+* Se cambió el método voucher() por cart()
+* Se organizó la estructura de archivos
+* Se agregaron los componentes vía bower y se usaron en la vista
+* Se integró el front de chechito
+* Se cambiaron los div de las pantallas por sections y se agregó al css display: none para todos los sections y JS los manipula
+* Se agregó el input a #cart pero como no se puede mantener focus sobre un input hidden o text con display: none, se seteó position:absolute; bottom:0;left:0; y con opacity: 0
+* Se cambió la variable documento por passport en JS
 
-[CakePHP](http://www.cakephp.org) - The rapid development PHP framework
+0.1.2
+* Cuando cambia de usuario no se refresca el valor total
 
-[CookBook](http://book.cakephp.org) - THE CakePHP user documentation; start learning here!
+### TODO
+- [x] Agregar el nombre de la persona
+- [x] Mostrar input del codigo de barra del producto, con el fin de ver alguna interración
+- [x] Si un producto se agrega dos veces, aparece dos veces, la columa # (cantidad) sobra
+- [x] Input de RUT ampliar, no se ve el rut completo
+- [x] Validar que existan productos en el carro cuando se elimina un producto con la tecla DELETE
+- [x] Revisar que se actualice el valor cuando se eliminan productos
+- [ ] Agregar botón cancelar y confirmar (pensando en monitores touch)
+- [x] Cuando cambia de usuario no se refresca el valor total
 
-[API](http://api.cakephp.org) - A reference to CakePHP's classes
-
-[Plugins](http://plugins.cakephp.org/) - A repository of extensions to the framework
-
-[The Bakery](http://bakery.cakephp.org) - Tips, tutorials and articles
-
-[Community Center](http://community.cakephp.org) - A source for everything community related
-
-[Training](http://training.cakephp.org) - Join a live session and get skilled with the framework
-
-[CakeFest](http://cakefest.org) - Don't miss our annual CakePHP conference
-
-[Cake Software Foundation](http://cakefoundation.org) - Promoting development related to CakePHP
-
-Get Support!
-------------
-
-[#cakephp](http://webchat.freenode.net/?channels=#cakephp) on irc.freenode.net - Come chat with us, we have cake
-
-[Google Group](https://groups.google.com/group/cake-php) - Community mailing list and forum
-
-[GitHub Issues](https://github.com/cakephp/cakephp/issues) - Got issues? Please tell us!
-
-[Roadmaps](https://github.com/cakephp/cakephp/wiki#roadmaps) - Want to contribute? Get involved!
-
-[![Bake Status](https://secure.travis-ci.org/cakephp/cakephp.png?branch=master)](http://travis-ci.org/cakephp/cakephp)
-
-![Cake Power](https://raw.github.com/cakephp/cakephp/master/lib/Cake/Console/Templates/skel/webroot/img/cake.power.gif)
+### VERSION
+0.1.2
