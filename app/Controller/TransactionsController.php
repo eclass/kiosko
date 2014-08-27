@@ -24,4 +24,8 @@ class TransactionsController extends AppController {
 		}
 	}
 
+	public function add(){
+		$this->autoRender = false;
+		pr($this->data);
+	}
 }
