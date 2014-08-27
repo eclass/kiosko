@@ -61,7 +61,8 @@ echo $this->Session->flash();
 				echo $this->Html->link(
 					'Eliminar',
 					array('controller' => 'people', 'action' => 'delete', $person['Person']['id']),
-					array('class' => 'button')
+					array('class' => 'button') ,
+					"La acción eliminará la persona, ¿Está seguro?"
 				);
 				?>
 			</td>
