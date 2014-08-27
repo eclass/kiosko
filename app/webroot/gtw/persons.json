@@ -1,0 +1,26 @@
+{
+	"RUT17104134": {
+		"id": 1,
+		"rut": "RUT17104134",
+		"name": "Juan Pablo Barrientos",
+		"email": "jbarrientos@eclass.cl"
+	},
+	"RUT16076566": {
+		"id": 3,
+		"rut": "RUT16076566",
+		"name": "Víctor San Martin",
+		"email": "victor@eclass.cl"
+	},
+	"RUT17667409": {
+		"id": 2,
+		"rut": "RUT17667409",
+		"name": "Sergio Barnachea",
+		"email": "sbarnachea@eclass.cl"
+	},
+	"RUT17378665": {
+		"id": 4,
+		"rut": "RUT17378665",
+		"name": "Sebastian González Riffo",
+		"email": "sgonzalez@eclass.cl"
+	}
+}

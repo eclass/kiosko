@@ -1,0 +1,87 @@
+body {
+	background: url('../img/bgr-40.png') center top no-repeat;
+	background-size: cover;
+}
+section {
+	display: none;
+}
+.container .home input{
+	display: block;
+    font-size: 40px;
+    height: 70px;
+    line-height: 120%;
+    margin: 60px auto 0;
+    padding: 0 40px;
+    width: 360px;
+}
+h1{
+	color: #ffffff;
+}
+.container .logo{
+	margin: 20px 0;
+	padding: 10px;
+}
+.container .list{
+	background-color: rgba(255,255,255,0.8);
+	padding: 30px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 28px;
+	position: relative;
+}
+
+.container .list i.fa-barcode{
+	font-size: 60px;
+}
+.container .list table{
+	text-align: left;
+}
+.container .list .products a{
+	color: #BD0102;
+	font-size: 20px;
+}
+.container .list .total{
+	margin-right: 285px;
+}
+.container .list .total div{
+	margin-left: 100px;
+}
+.container .list .keyboards{
+	text-align: left;
+	padding: 10px;
+	border: 1px solid #F9F9F9;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	margin-top: 50px;
+}
+.container .list .keyboards a.btn{
+	font-size: 22px;
+	margin-bottom: 2px;
+}
+.products .title{
+	font-weight: bold
+}
+.products .row{
+	padding: 10px 0;
+}
+.products .row:nth-child(even) {
+	background-color: #F9F9F9
+}
+
+.to-show {
+	display: none;
+}
+#product_code {
+	position: absolute;
+	top: 10px;
+	right: 0;
+	background-color:transparent;
+	border: 0;
+}
+#product_code:focus{
+	outline: 0;
+	border: 0;
+}
