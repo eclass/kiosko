@@ -10,6 +10,16 @@ echo $this->Session->flash();
 ?>
 <br />
 <br />
+<h2>Buscar Producto</h2>
+<?php
+	echo $this->Form->create(null, array(
+	    'url' => array('controller' => 'products', 'action' => 'index')
+	));
+	echo $this->Form->input('Product.name', array('label' => 'Producto: ', 'placeholder' => 'Ingresa Nombre del producto'));
+	echo $this->Form->end('Buscar');
+?>
+<br />
+<br />
 <table>
 	<tr>
 		<th>Nombre</th>
