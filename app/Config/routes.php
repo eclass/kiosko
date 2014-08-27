@@ -24,6 +24,7 @@
  * its action called 'display', and we pass a param to select the view file
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
+	Router::parseExtensions('json');
 	Router::connect('/', array('controller' => 'kiosko', 'action' => 'index'));
 /**
  * ...and connect the rest of 'Pages' controller's URLs.

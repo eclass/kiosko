@@ -361,7 +361,7 @@ var kiosko = function() {
 	this.sendCarts = function() {
 		if (json.transactions.length > 0 && state == 1) {
 			$.ajax({
-				url: 'gtw/pushTransactions.php',
+				url: 'transactions/push',
 				cache: false,
 				method: 'POST',
 				data: { transactions: json.transactions },
@@ -394,8 +394,8 @@ var kiosko = function() {
  * @return void
  */
 	this.getPersons = function() {
-		$.getJSON('gtw/persons.json', function(data) {
-			json.persons = data;
+		$.getJSON('people/all.json', function(data) {
+			json.persons = data.people;
 
 			setTimeout(function() {
 				self.getPersons();
@@ -413,8 +413,8 @@ var kiosko = function() {
  * @return void
  */
 	this.getProducts = function() {
-		$.getJSON('gtw/products.json', function(data) {
-			json.products = data;
+		$.getJSON('products/all.json', function(data) {
+			json.products = data.products;
 
 			setTimeout(function() {
 				self.getProducts();
@@ -447,7 +447,7 @@ var kiosko = function() {
 			self.idleTime();
 		}, 1000);
 	}
-	// self.idleTime();
+	self.idleTime();
 
 /*!
  * Mantiene el foco siempre en el input correcto de acuerdo al estado

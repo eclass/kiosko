@@ -1,7 +1,13 @@
 <?php
 class ProductsController extends AppController {
 
-	public function index(){
+/**
+ * components
+ * @var array
+ */
+	public $components = array('RequestHandler');
+
+	public function index() {
 		if (!empty($this->request->data)) {
 			$this->set('products', $this->Product->find('all',array(
 				'conditions' => array(
@@ -19,40 +25,40 @@ class ProductsController extends AppController {
 		}
 	}
 
-	public function view($id = null){
-		if(isset($id)){
+	public function view($id = null) {
+		if (isset($id)) {
 			$this->set('product', $this->Product->find('first', array(
 				'conditions' => array('id' => $id)
 			)));
 		}
-		else{
+		else {
 			$this->Session->setFlash('Id de producto inválido'/*, 'failure'*/);
 			$this->redirect(array('action' => 'index'));
 		}
 	}
 
-	public function add($id = null){
+	public function add($id = null) {
 
-		if(!empty($this->request->data)){
-			if(isset($id)){
+		if (!empty($this->request->data)) {
+			if (isset($id)) {
 				$this->Product->id = $id;
 				$action = 'modificado';
 			}
-			else{
+			else {
 				$this->Product->id = null;
 				$action = 'creado';
 			}
-			if($this->Product->save($this->request->data)){
+			if ($this->Product->save($this->request->data)) {
 				$this->Session->setFlash('Producto ' . $action . ' exitosamente'/*, 'success'*/);
 				$this->redirect(array('action' => 'index'));
 			}
-			else{
+			else {
 				$this->Session->setFlash('Error al guardar el producto'/*, 'failure'*/);
 				$this->redirect(array('action' => 'index'));
 			}
 		}
 
-		if(isset($id)){
+		if (isset($id)) {
 			$producto = $this->Product->find('first', array(
 				'conditions' => array('id' => $id)
 			));
@@ -60,21 +66,43 @@ class ProductsController extends AppController {
 		}
 	}
 
-	public function delete($id = null){
-		if(isset($id)){
+	public function delete($id = null) {
+		if (isset($id)) {
 			$this->Product->id = $id;
-			if($this->Product->save(array('deleted' => 1))){
+			if ($this->Product->save(array('deleted' => 1))) {
 				$this->Session->setFlash('Producto eliminado', 'default', array(), 'good');
 			}
-			else{
+			else {
 				$this->Session->setFlash('Error al eliminar el producto'/*, 'success'*/);
 			}
 		}
-		else{
+		else {
 			$this->Session->setFlash('Id de producto inválido'/*, 'failure'*/);
 		}
 		$this->redirect(array('action' => 'index'));
 	}
 
+/**
+ * all function
+ * return all products in json format
+ *
+ * @author vsanmartin
+ * @since 2014-08-26
+ * @return void
+ */
+	public function all() {
+		$products = $this->Product->find('all', array(
+			'conditions' => array('deleted' => 0)
+		));
+
+		$json = array();
+		foreach($products as $product) {
+			$json[$product['Product']['code']] = $product['Product'];
+		}
+		$products = $json;
+
+		$this->set(compact('products'));
+        $this->set('_serialize', array('products'));
+	}
+
 }
-?>

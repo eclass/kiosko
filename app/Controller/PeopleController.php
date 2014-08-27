@@ -1,6 +1,12 @@
 <?php
 class PeopleController extends AppController {
 
+/**
+ * components
+ * @var array
+ */
+	public $components = array('RequestHandler');
+
 	public function index(){
 		$this->set('people', $this->Person->find('all', array(
 				'conditions' => array('deleted' => 0),
@@ -81,5 +87,28 @@ class PeopleController extends AppController {
 
 		$this->set('debtors', $debtors);
 	}
+
+/**
+ * all function
+ * return all people in json format
+ *
+ * @author vsanmartin
+ * @since 2014-08-26
+ * @return void
+ */
+	public function all() {
+		$people = $this->Person->find('all', array(
+			'conditions' => array('deleted' => 0)
+		));
+
+		$json = array();
+		foreach($people as $person) {
+			$person['Person']['rut'] = 'RUT' . $person['Person']['rut'];
+			$json[$person['Person']['rut']] = $person['Person'];
+		}
+		$people = $json;
+
+		$this->set(compact('people'));
+        $this->set('_serialize', array('people'));
+	}
 }
-?>
