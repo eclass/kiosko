@@ -59,7 +59,8 @@ echo $this->Session->flash();
 				echo $this->Html->link(
 					'Eliminar',
 					array('controller' => 'products', 'action' => 'delete', $product['Product']['id']),
-					array('class' => 'button')
+					array('class' => 'button') ,
+					"La acción eliminará el producto, ¿Está seguro?"
 				);
 				?>
 			</td>

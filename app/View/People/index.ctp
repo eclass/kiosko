@@ -62,7 +62,7 @@ echo $this->Session->flash();
 					'Eliminar',
 					array('controller' => 'people', 'action' => 'delete', $person['Person']['id']),
 					array('class' => 'button') ,
-					"La acción eliminará la persona, ¿Está seguro que desea continuar?"
+					"La acción eliminará la persona, ¿Está seguro?"
 				);
 				?>
 			</td>
