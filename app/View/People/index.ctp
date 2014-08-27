@@ -9,6 +9,14 @@ echo $this->Session->flash();
 	);
 ?>
 <br />
+<?php
+	echo $this->Html->link(
+		'Listado de Deudores',
+		array('controller' => 'people', 'action' => 'debtors'),
+		array('class' => 'button')
+	);
+?>
+<br />
 <br />
 <table>
 	<tr>
