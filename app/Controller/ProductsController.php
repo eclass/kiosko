@@ -8,21 +8,24 @@ class ProductsController extends AppController {
 	public $components = array('RequestHandler');
 
 	public function index() {
-		if (!empty($this->request->data)) {
-			$this->set('products', $this->Product->find('all',array(
-				'conditions' => array(
-					'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%'
-				)
-			)
-			));
 
-		} else {
-			$this->set('products', $this->Product->find('all', array(
-					'conditions' => array('deleted' => 0),
-					'order' => array('name' => 'asc')
-				))
+		$conditions = array();
+		if(!empty($this->request->data)){
+			$conditions = array(
+				'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%'
 			);
 		}
+
+		$this->paginate = array(
+            'conditions' => array_merge(
+            	$conditions,
+            	array('deleted' => 0)
+            ),
+			'order' => array('name' => 'asc'),
+            'limit'  => 10
+        );
+
+	    $this->set('products', $this->paginate('Product'));
 	}
 
 	public function view($id = null) {
@@ -104,5 +107,24 @@ class ProductsController extends AppController {
 		$this->set(compact('products'));
         $this->set('_serialize', array('products'));
 	}
+
+	function auto_complete() {
+		$this->autoRender = false;
+        $products = $this->Product->find('all', array(
+            'conditions' => array(
+            	'LCASE(name) LIKE ' => '%' . strtolower($this->params['url']['autoCompleteText']) . '%'
+                //'LCASE(CONCAT(User.name," ", User.last_name)) LIKE' => '%'.strtolower($this->params['url']['autoCompleteText']).'%'
+            ),
+            'limit' => 	3,
+            'recursive'=> -1,
+        ));
+
+        $data = [];
+        foreach ($products as $key => $value) :
+        		$data[$key] = $value['Product']['name'];
+        endforeach;
+
+        echo $products = json_encode($data);
+    }
 
 }

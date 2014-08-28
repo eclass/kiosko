@@ -1,3 +1,4 @@
+<!-- while -->
 <?php
 echo $this->Session->flash();
 ?>
@@ -15,16 +16,33 @@ echo $this->Session->flash();
 	echo $this->Form->create(null, array(
 	    'url' => array('controller' => 'products', 'action' => 'index')
 	));
-	echo $this->Form->input('Product.name', array('label' => 'Producto: ', 'placeholder' => 'Ingresa Nombre del producto'));
-	echo $this->Form->end('Buscar');
+	echo $this->AutoComplete->input(
+				'Product.name',
+				array(
+					'label' => 'Nombre: ',
+					'autocomplete'=>'off',
+					'class'=>'form-control input-search',
+					'placeholder'=>'Ingresa Nombre del producto',
+					'autoCompleteUrl'=>$this->Html->url(
+						array(
+							'controller'=>'products',
+							'action'=>'auto_complete',
+						)
+					),
+					'autoCompleteRequestItem'=>'autoCompleteText',
+				)
+			);
+	//echo $this->Form->input('Product.name', array('label' => 'Producto: ', 'placeholder' => 'Ingresa Nombre del producto'));
+	echo $this->Form->button('Buscar', array('type' => 'submit', 'id'=>'btn-submit', 'class'=>'btn btn-primary'));
 ?>
 <br />
 <br />
 <table>
 	<tr>
-		<th>Nombre</th>
-		<th>Precio</th>
-		<th>Stock</th>
+		<th><?php echo $this->Paginator->sort('Product.name', 'Nombre'); ?></th>
+		<th><?php echo $this->Paginator->sort('Product.code', 'Barcode'); ?></th>
+		<th><?php echo $this->Paginator->sort('Product.price', 'Precio'); ?></th>
+		<th><?php echo $this->Paginator->sort('Product.stock', 'Stock'); ?></th>
 		<th>&nbsp;</th>
 		<th>&nbsp;</th>
 	</tr>
@@ -39,12 +57,9 @@ echo $this->Session->flash();
 				);
 				?>
 			</td>
-			<td>
-				<?php echo $product['Product']['price']; ?>
-			</td>
-			<td>
-				<?php echo $product['Product']['stock']; ?>
-			</td>
+			<td><?php echo $product['Product']['code']; ?></td>
+			<td><?php echo $product['Product']['price']; ?></td>
+			<td><?php echo $product['Product']['stock']; ?></td>
 			<td>
 				<?php
 				echo $this->Html->link(
