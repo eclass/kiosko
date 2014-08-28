@@ -9,7 +9,7 @@ class Pay extends Model {
 	public $paginate = array(
 		'limit' => 25,
 		'order' => array(
-			'Pay.id' => 'asc'
+			'Pay.date' => 'desc'
 		)
 	);
 }

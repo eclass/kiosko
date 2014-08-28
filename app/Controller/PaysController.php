@@ -2,11 +2,27 @@
 class PaysController extends AppController {
 
 	public function index(){
-		$this->set('pays', $this->Pay->find('all', array(
-				'conditions' => array('Pay.deleted' => 0),
-				'order' => array('date' => 'DESC')
-			))
-		);
+
+		$conditions = array();
+		if(!empty($this->request->data)){
+			$conditions = array(
+				// + Agregar el buscador en la vista.
+				// 'id_person' => '%' . strtolower($this->request->data['Person']['id']) . '%'
+			);
+		}
+
+		$this->paginate = array(
+			'conditions' => array_merge(
+				$conditions,
+				array(
+					'Pay.deleted' => 0,
+				)
+            ),
+            'order' => array('date' => 'desc'),
+            'limit'  => 20
+        );
+
+		$this->set('pays', $this->paginate('Pay'));
 	}
 
 	public function view($id = null){
