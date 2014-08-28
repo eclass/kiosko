@@ -33,6 +33,11 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
+
+		/* Load jquery (momentaneo) */
+		echo $this->Html->script('http://code.jquery.com/jquery-1.11.0.min.js"');
+		/* Load css para auto_complete (momentaneo) */
+		echo $this->Html->css('style');
 	?>
 </head>
 <body>
