@@ -105,4 +105,27 @@ class ProductsController extends AppController {
         $this->set('_serialize', array('products'));
 	}
 
+	function auto_complete() {
+		$this->autoRender = false;
+        $products = $this->Product->find('all', array(
+            'conditions' => array(
+            	'LCASE(name) LIKE ' => '%' . strtolower($this->params['url']['autoCompleteText']) . '%'
+                //'LCASE(CONCAT(User.name," ", User.last_name)) LIKE' => '%'.strtolower($this->params['url']['autoCompleteText']).'%'
+            ),
+            'fields' => ['*'],
+            'limit' => 3,
+            'recursive'=>-1,
+        ));
+
+        $data = [];
+        foreach ($products as $key => $value) :
+        		$data[$key] = $value['Product']['name'];
+        endforeach;
+
+        // $usdata
+        echo $products = json_encode($data);
+        //$this->set('users', $users);
+        //$this->layout = 'ajax';
+    }
+
 }

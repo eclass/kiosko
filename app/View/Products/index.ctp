@@ -1,3 +1,4 @@
+<!-- while -->
 <?php
 echo $this->Session->flash();
 ?>
@@ -15,8 +16,24 @@ echo $this->Session->flash();
 	echo $this->Form->create(null, array(
 	    'url' => array('controller' => 'products', 'action' => 'index')
 	));
-	echo $this->Form->input('Product.name', array('label' => 'Producto: ', 'placeholder' => 'Ingresa Nombre del producto'));
-	echo $this->Form->end('Buscar');
+	echo $this->AutoComplete->input(
+				'Product.name',
+				array(
+					'label' => 'Nombre: ',
+					'autocomplete'=>'off',
+					'class'=>'form-control input-search',
+					'placeholder'=>'Ingresa Nombre del producto',
+					'autoCompleteUrl'=>$this->Html->url(
+						array(
+							'controller'=>'products',
+							'action'=>'auto_complete',
+						)
+					),
+					'autoCompleteRequestItem'=>'autoCompleteText',
+				)
+			);
+	//echo $this->Form->input('Product.name', array('label' => 'Producto: ', 'placeholder' => 'Ingresa Nombre del producto'));
+	echo $this->Form->button('Buscar', array('type' => 'submit', 'id'=>'btn-submit', 'class'=>'btn btn-primary'));
 ?>
 <br />
 <br />
