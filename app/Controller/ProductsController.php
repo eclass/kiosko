@@ -115,9 +115,8 @@ class ProductsController extends AppController {
             	'LCASE(name) LIKE ' => '%' . strtolower($this->params['url']['autoCompleteText']) . '%'
                 //'LCASE(CONCAT(User.name," ", User.last_name)) LIKE' => '%'.strtolower($this->params['url']['autoCompleteText']).'%'
             ),
-            'fields' => ['*'],
-            'limit' => 3,
-            'recursive'=>-1,
+            'limit' => 	3,
+            'recursive'=> -1,
         ));
 
         $data = [];
@@ -125,10 +124,7 @@ class ProductsController extends AppController {
         		$data[$key] = $value['Product']['name'];
         endforeach;
 
-        // $usdata
         echo $products = json_encode($data);
-        //$this->set('users', $users);
-        //$this->layout = 'ajax';
     }
 
 }
