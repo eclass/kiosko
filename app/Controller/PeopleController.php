@@ -17,9 +17,9 @@ class PeopleController extends AppController {
 		}
 
 		$this->paginate = array(
-            'conditions' => array_merge(
-            	$conditions,
-            	array('deleted' => 0)
+			'conditions' => array_merge(
+				$conditions,
+				array('deleted' => 0)
             ),
 			'order' => array('name' => 'asc'),
             'limit'  => 10
@@ -90,15 +90,26 @@ class PeopleController extends AppController {
 	*/
 	public function debtors() {
 
-		$debtors = $this->Person->find('all',array(
-			'conditions' => array(
-				'deleted' => 0,
-				'debt >' => 0
-			),
-			'order' => array('name' => 'asc')
-		));
+		$conditions = array();
+		if(!empty($this->request->data)){
+			$conditions = array(
+				'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Person']['name']) . '%'
+			);
+		}
 
-		$this->set('debtors', $debtors);
+		$this->paginate = array(
+			'conditions' => array_merge(
+				$conditions,
+				array(
+					'deleted' => 0,
+					'debt >' => 0
+				)
+            ),
+			'order' => array('name' => 'asc'),
+            'limit'  => 10
+        );
+
+		$this->set('debtors', $this->paginate('Person'));
 	}
 
 /**
