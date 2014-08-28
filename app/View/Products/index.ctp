@@ -22,9 +22,10 @@ echo $this->Session->flash();
 <br />
 <table>
 	<tr>
-		<th>Nombre</th>
-		<th>Precio</th>
-		<th>Stock</th>
+		<th><?php echo $this->Paginator->sort('Product.name', 'Nombre'); ?></th>
+		<th><?php echo $this->Paginator->sort('Product.code', 'Barcode'); ?></th>
+		<th><?php echo $this->Paginator->sort('Product.price', 'Precio'); ?></th>
+		<th><?php echo $this->Paginator->sort('Product.stock', 'Stock'); ?></th>
 		<th>&nbsp;</th>
 		<th>&nbsp;</th>
 	</tr>
@@ -39,12 +40,9 @@ echo $this->Session->flash();
 				);
 				?>
 			</td>
-			<td>
-				<?php echo $product['Product']['price']; ?>
-			</td>
-			<td>
-				<?php echo $product['Product']['stock']; ?>
-			</td>
+			<td><?php echo $product['Product']['code']; ?></td>
+			<td><?php echo $product['Product']['price']; ?></td>
+			<td><?php echo $product['Product']['stock']; ?></td>
 			<td>
 				<?php
 				echo $this->Html->link(

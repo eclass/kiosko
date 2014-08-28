@@ -8,21 +8,24 @@ class ProductsController extends AppController {
 	public $components = array('RequestHandler');
 
 	public function index() {
-		if (!empty($this->request->data)) {
-			$this->set('products', $this->Product->find('all',array(
-				'conditions' => array(
-					'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%'
-				)
-			)
-			));
 
-		} else {
-			$this->set('products', $this->Product->find('all', array(
-					'conditions' => array('deleted' => 0),
-					'order' => array('name' => 'asc')
-				))
+		$conditions = array();
+		if(!empty($this->request->data)){
+			$conditions = array(
+				'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%'
 			);
 		}
+
+		$this->paginate = array(
+            'conditions' => array_merge(
+            	$conditions,
+            	array('deleted' => 0)
+            ),
+			'order' => array('name' => 'asc'),
+            'limit'  => 10
+        );
+
+	    $this->set('products', $this->paginate('Product'));
 	}
 
 	public function view($id = null) {
