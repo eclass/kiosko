@@ -8,11 +8,24 @@ class PeopleController extends AppController {
 	public $components = array('RequestHandler');
 
 	public function index(){
-		$this->set('people', $this->Person->find('all', array(
-				'conditions' => array('deleted' => 0),
-				'order' => array('name' => 'asc')
-			))
-		);
+
+		$conditions = array();
+		if(!empty($this->request->data)){
+			$conditions = array(
+				'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Person']['name']) . '%'
+			);
+		}
+
+		$this->paginate = array(
+            'conditions' => array_merge(
+            	$conditions,
+            	array('deleted' => 0)
+            ),
+			'order' => array('name' => 'asc'),
+            'limit'  => 10
+        );
+
+	    $this->set('people', $this->paginate('Person'));
 	}
 
 	public function view($id = null){

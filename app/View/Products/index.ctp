@@ -84,3 +84,17 @@ echo $this->Session->flash();
 	}
 ?>
 </table>
+<!-- paginator con estilo bootstrap 3.0 -->
+<div class="pagination pagination-right">
+    <ul class="pagination">
+        <?php
+            if($this->Paginator->prevPage)
+                echo $this->Paginator->prev( '<<', array( 'class' => '', 'tag' => 'li' ), null, array( 'class' => 'disabled', 'tag' => 'li' ) );
+            echo $this->Paginator->first( '<< Primera Página', array( 'class' => '', 'tag' => 'li' ), null, array( 'class' => 'disabled', 'tag' => 'li' ) );
+            echo $this->Paginator->numbers( array( 'tag' => 'li', 'separator' => '', 'currentClass' => 'active', 'currentTag' => 'a' ) );
+            echo $this->Paginator->next( '>>', array( 'class' => '', 'tag' => 'li' ), null, array( 'class' => 'disabled', 'tag' => 'li' ) );
+            echo $this->Paginator->last( ' Última Página >>', array( 'class' => '', 'tag' => 'li' ), null, array( 'class' => 'disabled', 'tag' => 'li' ) );
+        ?>
+    </ul>
+</div>
+<!-- paginator con estilo bootstrap 3.0 -->
