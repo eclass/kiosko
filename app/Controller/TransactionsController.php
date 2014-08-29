@@ -37,13 +37,10 @@ class TransactionsController extends AppController {
  * @return void
  */
 	public function push() {
+		$this->autoRender = false;
 
-		pr($this->request->data);
-
-		if (!empty($_POST['transactions'])) {
-			print_r($_POST['transactions']);
-			exit;
-			foreach ($_POST['transactions'] as $transaction) {
+		if (!empty($this->request->data['transactions'])) {
+			foreach ($this->request->data['transactions'] as $transaction) {
 				if (!empty($transaction['products'])) {
 
 					$this->Transaction->create();
@@ -57,7 +54,7 @@ class TransactionsController extends AppController {
 					foreach ($transaction['products'] as $code => $product) {
 
 						$data = $this->Transaction->Product->find('first', array(
-							'conditions' => array('code' => $code, 'deleted' => 0)
+							'conditions' => array('code' => $product['product_code'], 'deleted' => 0)
 						));
 						if (empty($data)) {
 							continue;
@@ -72,6 +69,8 @@ class TransactionsController extends AppController {
 
 					$this->Transaction->id = $transaction_id;
 					$this->Transaction->save(array('total' => $total));
+					//Guarda la Deuda
+					$this->Transaction->query('UPDATE people set debt = (debt + ' . $total . ') where id = ' . $transaction['person_id']);
 				}
 			}
 		}
