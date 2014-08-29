@@ -12,10 +12,10 @@ echo $this->Session->flash();
 <br />
 <table>
 	<tr>
-		<th>Nombre</th>
-		<th>Rut</th>
-		<th>Fecha</th>
-		<th>Monto</th>
+		<th><?php echo $this->Paginator->sort('Person.name', 'Nombre'); ?></th>
+		<th><?php echo $this->Paginator->sort('Person.rut', 'Rut'); ?></th>
+		<th><?php echo $this->Paginator->sort('Pay.date', 'Fecha Pago'); ?></th>
+		<th><?php echo $this->Paginator->sort('Pay.amount', 'Monto Pagado'); ?></th>
 		<th>&nbsp;</th>
 		<th>&nbsp;</th>
 	</tr>
@@ -62,3 +62,17 @@ echo $this->Session->flash();
 	}
 ?>
 </table>
+<!-- paginator con estilo bootstrap 3.0 -->
+<div class="pagination pagination-right">
+    <ul class="pagination">
+        <?php
+            if($this->Paginator->prevPage)
+                echo $this->Paginator->prev( '<<', array( 'class' => '', 'tag' => 'li' ), null, array( 'class' => 'disabled', 'tag' => 'li' ) );
+            echo $this->Paginator->first( '<< Primera Página', array( 'class' => '', 'tag' => 'li' ), null, array( 'class' => 'disabled', 'tag' => 'li' ) );
+            echo $this->Paginator->numbers( array( 'tag' => 'li', 'separator' => '', 'currentClass' => 'active', 'currentTag' => 'a' ) );
+            echo $this->Paginator->next( '>>', array( 'class' => '', 'tag' => 'li' ), null, array( 'class' => 'disabled', 'tag' => 'li' ) );
+            echo $this->Paginator->last( ' Última Página >>', array( 'class' => '', 'tag' => 'li' ), null, array( 'class' => 'disabled', 'tag' => 'li' ) );
+        ?>
+    </ul>
+</div>
+<!-- paginator con estilo bootstrap 3.0 -->

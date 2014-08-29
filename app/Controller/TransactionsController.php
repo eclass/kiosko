@@ -37,6 +37,9 @@ class TransactionsController extends AppController {
  * @return void
  */
 	public function push() {
+
+		pr($this->request->data);
+
 		if (!empty($_POST['transactions'])) {
 			print_r($_POST['transactions']);
 			exit;
