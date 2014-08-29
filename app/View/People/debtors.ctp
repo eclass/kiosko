@@ -10,6 +10,32 @@ echo $this->Session->flash();
 ?>
 <br />
 <br />
+<h2>Buscar Deudor</h2>
+<?php
+	echo $this->Form->create(null, array(
+	    'url' => array('controller' => 'people', 'action' => 'debtors')
+	));
+	echo $this->AutoComplete->input(
+				'Person.name',
+				array(
+					'label' => 'Nombre: ',
+					'autocomplete'=>'off',
+					'class'=>'form-control input-search',
+					'placeholder'=>'Ingresa Nombre de la persona',
+					'autoCompleteUrl'=>$this->Html->url(
+						array(
+							'controller'=>'people',
+							'action'=>'auto_complete_debtors',
+						)
+					),
+					'autoCompleteRequestItem'=>'autoCompleteText',
+				)
+			);
+	echo $this->Form->button('Buscar', array('type' => 'submit', 'id'=>'btn-submit', 'class'=>'btn btn-primary'));
+	echo $this->Form->end();
+?>
+<br />
+<br />
 <table>
 	<tr>
 		<th><?php echo $this->Paginator->sort('Person.name', 'Nombre'); ?></th>

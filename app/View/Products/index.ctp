@@ -32,8 +32,8 @@ echo $this->Session->flash();
 					'autoCompleteRequestItem'=>'autoCompleteText',
 				)
 			);
-	//echo $this->Form->input('Product.name', array('label' => 'Producto: ', 'placeholder' => 'Ingresa Nombre del producto'));
 	echo $this->Form->button('Buscar', array('type' => 'submit', 'id'=>'btn-submit', 'class'=>'btn btn-primary'));
+	echo $this->Form->end();
 ?>
 <br />
 <br />
