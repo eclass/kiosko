@@ -38,7 +38,11 @@ class PaysController extends AppController {
 	}
 
 	/**
-	* Método que paga */
+	* Método que paga deudas de forma masiva
+	* @author rbstamante
+	* @since 29-08-2014
+	*
+	**/
 	public function pay_debts() {
     	$this->autoRender = false;
 		if(!empty($this->request->data)) {
