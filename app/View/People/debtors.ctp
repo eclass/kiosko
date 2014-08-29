@@ -36,8 +36,12 @@ echo $this->Session->flash();
 ?>
 <br />
 <br />
+<?php echo $this->Form->button('Pagar Total Deuda', array('type' => 'button', 'id'=>'pay-debts', 'class'=>'btn btn-primary')); ?>
+<br />
+<br />
 <table>
 	<tr>
+		<th><?php echo $this->Form->checkbox('', array('class' => 'debtor-all-checks')); ?></th>
 		<th><?php echo $this->Paginator->sort('Person.name', 'Nombre'); ?></th>
 		<th><?php echo $this->Paginator->sort('Person.rut', 'Rut'); ?></th>
 		<th><?php echo $this->Paginator->sort('Person.debt', 'Deuda'); ?></th>
@@ -45,6 +49,7 @@ echo $this->Session->flash();
 	</tr>
 	<?php foreach ($debtors as $debtor) : ?>
 		<tr>
+			<td><?php echo $this->Form->checkbox('Person.' . $debtor['Person']['id'], array('value' => $debtor['Person']['id'], 'class' => 'debtor-check')); ?></td>
 			<td>
 				<?php echo $this->Html->link(
 					$debtor['Person']['name'],
@@ -79,3 +84,41 @@ echo $this->Session->flash();
     </ul>
 </div>
 <!-- paginator con estilo bootstrap 3.0 -->
+
+<script>
+	$( document ).ready(function() {
+		$('input:checkbox.debtor-all-checks').on('click', function() {
+			$('input:checkbox.debtor-check').trigger( "click" );
+		});
+
+	    $('#pay-debts').on('click', function(){
+	    	var id_person = [];
+
+	    	$('input:checkbox.debtor-check').each(function () {
+	    		if(this.checked) {
+	    			id_person.push(this.value);
+	    		}
+	    	});
+
+	    	if(id_person.length  === 0) {
+	    		alert('Debes Seleccionar almenos un usuario para pagar su deuda.');
+	    	} else {
+
+		    	$.ajax({
+		    		url: '/pays/pay_debts/',
+		    		data: {id_person:id_person},
+		    		method: 'post',
+		    		dataType: 'html',
+		    		success: function(msg) {
+
+		    			$('#content').prepend(msg);
+						setTimeout(function() {
+							location.href='/people/debtors/';
+						}, 3000);
+		    		}
+		    	});
+	    	}
+
+	    });
+	});
+</script>

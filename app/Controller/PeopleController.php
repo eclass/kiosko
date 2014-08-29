@@ -185,4 +185,5 @@ class PeopleController extends AppController {
 
         echo $products = json_encode($data);
     }
+
 }
