@@ -1,4 +1,4 @@
-var kiosko = function() {
+ var kiosko = function() {
 	var self = this,
 		state = 0,
 		cart = 0,
@@ -213,7 +213,7 @@ var kiosko = function() {
 
 		$('#home').fadeOut(function() {
 			$('#cart').fadeIn();
-			$('#product_code').focus();
+			$('#product_code').val('').focus();
 		});
 	}
 
@@ -246,24 +246,50 @@ var kiosko = function() {
 			$('.to-show').fadeIn();
 			$('.empty-list').hide();
 		}
+		var quantity  = 1;
+		var sub_total = 0;
+		var product   = {};
+		var products  = json.transactions[cart].products;
+		var indice    = 0;
 
-		var quantity = 1;
-		var sub_total = parseInt(json.products[product_code].price);
+		if( !products.length ){ //Crea el primer producto
+			product = {
+				product_code : product_code,
+				quantity	 : quantity,
+				total 		 : parseInt(json.products[product_code].price)
+			};
+			json.transactions[cart].products.push(product);
+		} else {
+			//Buscamos el producto
+			$(json.transactions[cart].products).each(function(index, element){
+				if(element.product_code == product_code){
+					product 		   = element;
+					product.total 	  += parseInt(json.products[product_code].price);
+					product.quantity  = element.quantity + quantity;
+					indice = index;
+				}
+			});
 
-		if(json.transactions[cart].products[product_code]){
-			quantity  += json.transactions[cart].products[product_code].quantity;
-			sub_total += json.transactions[cart].products[product_code].total;
+			if( !$.isEmptyObject(product) ){
+				json.transactions[cart].products[indice].quantity = product.quantity;
+				json.transactions[cart].products[indice].total = product.total;
+			} else {
+				product = {
+					product_code : product_code,
+					quantity	 : quantity,
+					total 		 : parseInt(json.products[product_code].price)
+				};
+				json.transactions[cart].products.push(product);
+			}
 		}
-
-		json.transactions[cart].products[product_code] = {quantity: quantity, total: sub_total};
 
 		total += parseInt(json.products[product_code].price);
 
-		if($('.product[data-id="'+product_code+'"]').length){
-			$('.product[data-id="'+product_code+'"] .quantity').html(quantity);
-			$('.product[data-id="'+product_code+'"] .sub-total').html('$ '+ sub_total);
+		if($('.product[data-id="' + product_code + '"]').length){
+			$('.product[data-id="' + product_code + '"] .quantity').html(product.quantity);
+			$('.product[data-id="' + product_code + '"] .sub-total').html('$ '+ product.total);
 		} else {
-			$('.products').append('<div class="row product" data-id="' + product_code + '"><div class="col-sm-6 text-left name">' + json.products[product_code].name + '</div><div class="col-sm-1 text-left quantity text-center">' + json.transactions[cart].products[product_code].quantity + '</div><div class="col-sm-2">$ ' + json.products[product_code].price + '</div><div class="col-sm-2 sub-total">$ ' + json.transactions[cart].products[product_code].total + '</div><div class="col-sm-1 action"><a href="#"><i class="fa fa-minus-square"></i></a></div></div>');
+			$('.products').append('<div class="row product" data-id="' + product_code + '"><div class="col-sm-6 text-left name">' + json.products[product_code].name + '</div><div class="col-sm-1 text-left quantity text-center">' + product.quantity + '</div><div class="col-sm-2">$ ' + json.products[product_code].price + '</div><div class="col-sm-2 sub-total">$ ' + product.total + '</div><div class="col-sm-1 action"><a href="#"><i class="fa fa-minus-square"></i></a></div></div>');
 		}
 
 		$('div[data-kiosko="total"]').html('$ '+total);
@@ -307,7 +333,6 @@ var kiosko = function() {
 			person_id: person.id,
 			products: []
 		});
-
 		cart = json.transactions.length -1;
 	}
 
