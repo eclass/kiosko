@@ -87,6 +87,8 @@ class PeopleController extends AppController {
 
 	/**
 	* Reporte de deudores
+	* @author rbustamante
+	*
 	*/
 	public function debtors() {
 
@@ -112,14 +114,39 @@ class PeopleController extends AppController {
 		$this->set('debtors', $this->paginate('Person'));
 	}
 
-/**
- * all function
- * return all people in json format
- *
- * @author vsanmartin
- * @since 2014-08-26
- * @return void
- */
+	/**
+	* Auto completar de deudores
+	* @author rbustamante
+	*
+	*/
+	public function auto_complete_debtors() {
+		$this->autoRender = false;
+        $products = $this->Person->find('all', array(
+            'conditions' => array(
+            	'LCASE(name) LIKE ' => '%' . strtolower($this->params['url']['autoCompleteText']) . '%',
+            	'deleted' => 0,
+            	'debt >' => 0
+            ),
+            'limit' => 	3,
+            'recursive'=> -1,
+        ));
+
+        $data = [];
+        foreach ($products as $key => $value) :
+        		$data[$key] = $value['Person']['name'];
+        endforeach;
+
+        echo $products = json_encode($data);
+    }
+
+	/**
+	 * all function
+	 * return all people in json format
+	 *
+	 * @author vsanmartin
+	 * @since 2014-08-26
+	 * @return void
+	 */
 	public function all() {
 		$people = $this->Person->find('all', array(
 			'conditions' => array('deleted' => 0)
@@ -135,4 +162,28 @@ class PeopleController extends AppController {
 		$this->set(compact('people'));
         $this->set('_serialize', array('people'));
 	}
+
+	/**
+	* Auto completar de personas
+	* @author rbustamante
+	*
+	*/
+	public function auto_complete() {
+		$this->autoRender = false;
+        $products = $this->Person->find('all', array(
+            'conditions' => array(
+            	'LCASE(name) LIKE ' => '%' . strtolower($this->params['url']['autoCompleteText']) . '%'
+            ),
+            'limit' => 	3,
+            'recursive'=> -1,
+        ));
+
+        $data = [];
+        foreach ($products as $key => $value) :
+        		$data[$key] = $value['Person']['name'];
+        endforeach;
+
+        echo $products = json_encode($data);
+    }
+
 }

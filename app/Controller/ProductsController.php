@@ -113,7 +113,6 @@ class ProductsController extends AppController {
         $products = $this->Product->find('all', array(
             'conditions' => array(
             	'LCASE(name) LIKE ' => '%' . strtolower($this->params['url']['autoCompleteText']) . '%'
-                //'LCASE(CONCAT(User.name," ", User.last_name)) LIKE' => '%'.strtolower($this->params['url']['autoCompleteText']).'%'
             ),
             'limit' => 	3,
             'recursive'=> -1,

@@ -37,6 +37,37 @@ class PaysController extends AppController {
 		}
 	}
 
+	/**
+	* Método que paga deudas de forma masiva
+	* @author rbstamante
+	* @since 29-08-2014
+	*
+	**/
+	public function pay_debts() {
+    	$this->autoRender = false;
+		if(!empty($this->request->data)) {
+			foreach ($this->request->data['id_person'] as $persona) {
+				$person = $this->Pay->Person->find('first', array('fields' => array('debt'), 'conditions' => array('id' => $persona, 'debt > ' => 0)));
+
+				if (!empty($person)) {
+
+					$pay['Pay']['id'] = null;
+					$pay['Pay']['id_person'] = $person['Person']['id'];
+					$pay['Pay']['amount'] = $person['Person']['debt'];
+					$pay['Pay']['date'] = date('Y-m-d H:i:s');
+
+					/* Si se paga la deuda de la persona */
+					if($this->Pay->save($pay)) {
+						$person['Person']['debt'] = 0;
+						$this->Pay->Person->save($person);
+					}
+				}
+			}
+
+			echo '<div id="flashMessage" class="message">Se ha pagado la deuda de todos las Personas selecionadas.</div>';
+		}
+	}
+
 	public function add($id = null, $idPersona = null){
 		if(!empty($this->request->data)){
 			if(isset($id) && $id != 0){
