@@ -213,7 +213,7 @@ var kiosko = function() {
 
 		$('#home').fadeOut(function() {
 			$('#cart').fadeIn();
-			$('#product_code').focus();
+			$('#product_code').val('').focus();
 		});
 	}
 
@@ -246,24 +246,41 @@ var kiosko = function() {
 			$('.to-show').fadeIn();
 			$('.empty-list').hide();
 		}
-
 		var quantity = 1;
-		var sub_total = parseInt(json.products[product_code].price);
+		var sub_total = 0;
+		var product = [];
+		var products = json.transactions[cart].products;
 
-		if(json.transactions[cart].products[product_code]){
-			quantity  += json.transactions[cart].products[product_code].quantity;
-			sub_total += json.transactions[cart].products[product_code].total;
-		}
+		console.log('product_code : ' + product_code);
+		console.log(products);
 
-		json.transactions[cart].products[product_code] = {quantity: quantity, total: sub_total};
 
+		$(products).each(function(index, element){
+			if(element.product_code == product_code){
+				product = element;
+				sub_total += parseInt(product.price);
+				quantity  += product.quantity;
+			} else {
+				json.transactions[cart].products.push({
+					product_code : product_code,
+					quantity: quantity,
+					total: sub_total
+				});
+			}
+
+			console.log(product);
+		});
+
+
+		return;
+		console.log(json.transactions[cart].products);
 		total += parseInt(json.products[product_code].price);
 
 		if($('.product[data-id="'+product_code+'"]').length){
 			$('.product[data-id="'+product_code+'"] .quantity').html(quantity);
 			$('.product[data-id="'+product_code+'"] .sub-total').html('$ '+ sub_total);
 		} else {
-			$('.products').append('<div class="row product" data-id="' + product_code + '"><div class="col-sm-6 text-left name">' + json.products[product_code].name + '</div><div class="col-sm-1 text-left quantity text-center">' + json.transactions[cart].products[product_code].quantity + '</div><div class="col-sm-2">$ ' + json.products[product_code].price + '</div><div class="col-sm-2 sub-total">$ ' + json.transactions[cart].products[product_code].total + '</div><div class="col-sm-1 action"><a href="#"><i class="fa fa-minus-square"></i></a></div></div>');
+			$('.products').append('<div class="row product" data-id="' + product_code + '"><div class="col-sm-6 text-left name">' + json.products[product_code].name + '</div><div class="col-sm-1 text-left quantity text-center">' + product.quantity + '</div><div class="col-sm-2">$ ' + json.products[product_code].price + '</div><div class="col-sm-2 sub-total">$ ' + product.total + '</div><div class="col-sm-1 action"><a href="#"><i class="fa fa-minus-square"></i></a></div></div>');
 		}
 
 		$('div[data-kiosko="total"]').html('$ '+total);
@@ -307,7 +324,7 @@ var kiosko = function() {
 			person_id: person.id,
 			products: []
 		});
-
+		console.log(cart);
 		cart = json.transactions.length -1;
 	}
 
@@ -360,14 +377,15 @@ var kiosko = function() {
  */
 	this.sendCarts = function() {
 		if (json.transactions.length > 0 && state == 1) {
+			console.log(json.transactions);
 			$.ajax({
 				url: 'transactions/push',
 				cache: false,
 				method: 'POST',
 				data: { transactions: json.transactions },
 				complete: function() {
-					json.transactions = [];
-					cart = 0;
+					// json.transactions = [];
+					// cart = 0;
 
 					setTimeout(function() {
 						self.sendCarts();
@@ -447,7 +465,7 @@ var kiosko = function() {
 			self.idleTime();
 		}, 1000);
 	}
-	self.idleTime();
+	// self.idleTime();
 
 /*!
  * Mantiene el foco siempre en el input correcto de acuerdo al estado
