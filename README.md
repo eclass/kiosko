@@ -36,4 +36,4 @@ Aplicación desarrollada con el fin de agilizar la venta y pago de productos del
 - [x] Cuando cambia de usuario no se refresca el valor total
 
 ### VERSION
-0.1.2
+0.1.3
