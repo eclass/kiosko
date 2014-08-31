@@ -1,49 +1,51 @@
 <?php
-echo $this->Session->flash();
-?>
-<?php
 	echo $this->Html->link(
-		'Crear Persona',
+		'Agregar Persona',
 		array('controller' => 'people', 'action' => 'add'),
-		array('class' => 'button')
+		array('class' => 'btn btn-success pull-left')
 	);
-?>
-<br />
-<?php
 	echo $this->Html->link(
 		'Listado de Deudores',
 		array('controller' => 'people', 'action' => 'debtors'),
-		array('class' => 'button')
+		array('class' => 'btn btn-danger pull-right')
 	);
 ?>
+
 <br />
-<h2>Buscar Persona</h2>
-<?php
-	echo $this->Form->create(null, array(
-	    'url' => array('controller' => 'people', 'action' => 'index')
-	));
-	echo $this->AutoComplete->input(
-				'Person.name',
-				array(
-					'label' => 'Nombre: ',
-					'autocomplete'=>'off',
-					'class'=>'form-control input-search',
-					'placeholder'=>'Ingresa Nombre de la persona',
-					'autoCompleteUrl'=>$this->Html->url(
-						array(
-							'controller'=>'people',
-							'action'=>'auto_complete',
-						)
-					),
-					'autoCompleteRequestItem'=>'autoCompleteText',
-				)
-			);
-	echo $this->Form->button('Buscar', array('type' => 'submit', 'id'=>'btn-submit', 'class'=>'btn btn-primary'));
-	echo $this->Form->end();
-?>
+<hr />
+
+<div class="row">
+	<?php echo $this->Form->create(null, array('url' => array('controller' => 'people', 'action' => 'index'))); ?>
+	<div class="col-md-10 col-sm-9 col-xs-12">
+		<?php
+		echo $this->AutoComplete->input(
+			'Person.name',
+			array(
+				'label' => false,
+				'autocomplete' => 'off',
+				'class' => 'form-control input-search',
+				'placeholder' => 'Ingresa Nombre de la persona que buscas',
+				'autoCompleteUrl' => $this->Html->url(
+					array(
+						'controller' => 'people',
+						'action' => 'auto_complete',
+					)
+				),
+				'autoCompleteRequestItem' => 'autoCompleteText',
+			)
+		);
+		?>
+	</div>
+	<div class="col-md-2 col-sm-3 hidden-xs">
+		<?php echo $this->Form->button('Buscar', array('type' => 'submit', 'id'=>'btn-submit', 'class'=>'btn btn-primary btn-block')); ?>
+	</div>
+	<?php echo $this->Form->end(); ?>
+</div>
 <br />
 <br />
-<table>
+
+<div class="table-responsive">
+	<table class="table table-striped table-hover">
 	<tr>
 		<th><?php echo $this->Paginator->sort('Person.name', 'Nombre'); ?></th>
 		<th><?php echo $this->Paginator->sort('Person.rut', 'Rut'); ?></th>
@@ -70,7 +72,7 @@ echo $this->Session->flash();
 				<?php echo $person['Person']['email']; ?>
 			</td>
 			<td>
-				<?php echo $person['Person']['debt']; ?>
+				<?php echo $this->Number->currency($person['Person']['debt'], 'CLP'); ?>
 			</td>
 			<td>
 				<?php
@@ -95,18 +97,6 @@ echo $this->Session->flash();
 		<?php
 	}
 ?>
-</table>
-<!-- paginator con estilo bootstrap 3.0 -->
-<div class="pagination pagination-right">
-    <ul class="pagination">
-        <?php
-            if($this->Paginator->prevPage)
-                echo $this->Paginator->prev( '<<', array( 'class' => '', 'tag' => 'li' ), null, array( 'class' => 'disabled', 'tag' => 'li' ) );
-            echo $this->Paginator->first( '<< Primera Página', array( 'class' => '', 'tag' => 'li' ), null, array( 'class' => 'disabled', 'tag' => 'li' ) );
-            echo $this->Paginator->numbers( array( 'tag' => 'li', 'separator' => '', 'currentClass' => 'active', 'currentTag' => 'a' ) );
-            echo $this->Paginator->next( '>>', array( 'class' => '', 'tag' => 'li' ), null, array( 'class' => 'disabled', 'tag' => 'li' ) );
-            echo $this->Paginator->last( ' Última Página >>', array( 'class' => '', 'tag' => 'li' ), null, array( 'class' => 'disabled', 'tag' => 'li' ) );
-        ?>
-    </ul>
+	</table>
 </div>
-<!-- paginator con estilo bootstrap 3.0 -->
+<?php echo $this->Paginator->pagination(array('ul' => 'pagination')); ?>

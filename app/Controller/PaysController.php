@@ -32,7 +32,10 @@ class PaysController extends AppController {
 			)));
 		}
 		else{
-			$this->Session->setFlash('Id de payo inválido'/*, 'failure'*/);
+			$this->Session->setFlash('Id de payo inválido', 'alert', array(
+				'plugin' => 'BoostCake',
+				'class' => 'alert-danger'
+			));
 			$this->redirect(array('action' => 'index'));
 		}
 	}
@@ -78,10 +81,11 @@ class PaysController extends AppController {
 				$this->Pay->id = null;
 				$action = 'agregado';
 			}
-			$rut = $this->request->data['Pay']['Person']['rut'];
+
+			$rut = str_replace('RUT', '', $this->request->data['Pay']['Person']['rut']);
 			$person = $this->Pay->Person->find('first', array(
 				'fields' => array('debt'),
-				'conditions' => array('Person.rut' => $this->request->data['Pay']['Person']['rut'])
+				'conditions' => array('Person.rut' => $rut)
 			));
 			if(!empty($person)){
 				//setea id de persona y elimina data persona del pago
@@ -95,18 +99,26 @@ class PaysController extends AppController {
 					$person['Person']['debt'] -= $this->request->data['Pay']['amount'];
 					$this->Pay->Person->save($person);
 
-					$this->Session->setFlash('Pago ' . $action . ' exitosamente'/*, 'success'*/);
+					$this->Session->setFlash('Pago ' . $action . ' exitosamente', 'alert', array(
+						'plugin' => 'BoostCake',
+						'class' => 'alert-success'
+					));
 					$this->redirect(array('action' => 'index'));
 				}
-				else{
-					$this->Session->setFlash('Error al guardar el pago'/*, 'failure'*/);
-					//recupera el rut al input
+				else {
+					$this->Session->setFlash('Error al guardar el pago', 'alert', array(
+						'plugin' => 'BoostCake',
+						'class' => 'alert-danger'
+					));
+
 					$this->request->data['Pay']['Person']['rut'] = $rut;
-					//$this->redirect(array('action' => 'index'));
 				}
 			}
 			else{
-				$this->Session->setFlash('Persona no encontrada' /*, 'success' */);
+				$this->Session->setFlash('Persona no encontrada', 'alert', array(
+					'plugin' => 'BoostCake',
+					'class' => 'alert-danger'
+				));
 			}
 		}
 
@@ -121,9 +133,9 @@ class PaysController extends AppController {
 			$person = $this->Pay->Person->find('first', array(
 				'conditions' => array('Person.id' => $idPersona)
 			));
-			//Bloquear input!
 
 			$this->request->data['Pay']['Person'] = $person['Person'];
+			$this->set(compact('person'));
 		}
 	}
 
@@ -134,14 +146,23 @@ class PaysController extends AppController {
 				//sumar deuda a la persona
 
 
-				$this->Session->setFlash('Pago eliminado', 'default', array(), 'good');
+				$this->Session->setFlash('Pago eliminado', 'alert', array(
+					'plugin' => 'BoostCake',
+					'class' => 'alert-success'
+				));
 			}
 			else{
-				$this->Session->setFlash('Error al eliminar el pago'/*, 'success'*/);
+				$this->Session->setFlash('Error al eliminar el pago', 'alert', array(
+					'plugin' => 'BoostCake',
+					'class' => 'alert-danger'
+				));
 			}
 		}
 		else{
-			$this->Session->setFlash('Id de pago inválido'/*, 'failure'*/);
+			$this->Session->setFlash('Id de pago inválido', 'alert', array(
+				'plugin' => 'BoostCake',
+				'class' => 'alert-danger'
+			));
 		}
 		$this->redirect(array('action' => 'index'));
 	}

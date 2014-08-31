@@ -17,10 +17,4 @@ class Product extends Model {
 		)
 	);
 
-	public $paginate = array(
-		'limit' => 25,
-		'order' => array(
-			'Users.id' => 'asc'
-		)
-	);
 }

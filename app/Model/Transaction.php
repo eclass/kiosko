@@ -13,10 +13,4 @@ class Transaction extends Model {
 		)
 	);
 
-	public $paginate = array(
-		'limit' => 25,
-		'order' => array(
-			'Pay.id' => 'asc'
-		)
-	);
 }

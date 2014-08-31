@@ -7,10 +7,4 @@ class Reposition extends Model {
 		),
 	);
 
-	public $paginate = array(
-		'limit' => 25,
-		'order' => array(
-			'Reposition.id' => 'asc'
-		)
-	);
 }
