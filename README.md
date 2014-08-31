@@ -1,11 +1,8 @@
-kiosko
+Kiosko eClass
 ======
 
-Kiosko eClass
+Aplicación desarrollada con el fin de agilizar la venta y pago de productos del kiosko eClass.
 
-Branchs:
-- Front
-- Backend
 
 ### Changelog
 0.0.0
@@ -23,6 +20,11 @@ Branchs:
 0.1.2
 * Cuando cambia de usuario no se refresca el valor total
 
+0.1.3
+* Cambios en composer.json
+* Cambios en README.md
+* Cambio de diseño en el backend
+
 ### TODO
 - [x] Agregar el nombre de la persona
 - [x] Mostrar input del codigo de barra del producto, con el fin de ver alguna interración
@@ -30,8 +32,8 @@ Branchs:
 - [x] Input de RUT ampliar, no se ve el rut completo
 - [x] Validar que existan productos en el carro cuando se elimina un producto con la tecla DELETE
 - [x] Revisar que se actualice el valor cuando se eliminan productos
-- [ ] Agregar botón cancelar y confirmar (pensando en monitores touch)
+- [x] Agregar botón cancelar y confirmar (pensando en monitores touch)
 - [x] Cuando cambia de usuario no se refresca el valor total
 
 ### VERSION
-0.1.2
+0.1.3

@@ -2,11 +2,16 @@
 class TransactionsController extends AppController {
 
 	public function index(){
-		$this->set('transactions', $this->Transaction->find('all', array(
-				'conditions' => array('Transaction.deleted' => 0),
-				'order' => array('date' => 'DESC')
-			))
-		);
+
+		$this->paginate = array(
+			'conditions' => array(
+				'Transaction.deleted' => 0,
+			),
+            'order' => array('date' => 'desc'),
+            'limit'  => 20
+        );
+
+		$this->set('transactions', $this->paginate('Transaction'));
 	}
 
 	public function view($id = null){

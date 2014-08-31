@@ -22,7 +22,7 @@ class ProductsController extends AppController {
             	array('deleted' => 0)
             ),
 			'order' => array('name' => 'asc'),
-            'limit'  => 10
+            'limit'  => 5
         );
 
 	    $this->set('products', $this->paginate('Product'));

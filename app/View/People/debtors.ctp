@@ -39,7 +39,8 @@ echo $this->Session->flash();
 <?php echo $this->Form->button('Pagar Total Deuda', array('type' => 'button', 'id'=>'pay-debts', 'class'=>'btn btn-primary')); ?>
 <br />
 <br />
-<table>
+<div class="table-responsive">
+	<table class="table table-striped table-hover">
 	<tr>
 		<th><?php echo $this->Form->checkbox('', array('class' => 'debtor-all-checks')); ?></th>
 		<th><?php echo $this->Paginator->sort('Person.name', 'Nombre'); ?></th>
@@ -69,7 +70,8 @@ echo $this->Session->flash();
 			</td>
 		</tr>
 	<?php endforeach; ?>
-</table>
+	</table>
+</div>
 <!-- paginator con estilo bootstrap 3.0 -->
 <div class="pagination pagination-right">
     <ul class="pagination">

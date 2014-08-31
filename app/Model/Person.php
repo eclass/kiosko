@@ -2,18 +2,12 @@
 class Person extends Model {
 	public $hasMany = array(
 		'Transaction' => array(
-			'foreignKey' => 'id_person'
+			'foreignKey' => 'id_person',
+			'order' => 'date DESC'
 		),
 		'Pay' => array(
-			'foreignKey' => 'id_person'
-		)
-	);
-
-	public $paginate = array(
-		'limit' => 25,
-		'order' => array(
-			'Persons.id' => 'asc'
+			'foreignKey' => 'id_person',
+			'order' => 'date DESC'
 		)
 	);
 }
-

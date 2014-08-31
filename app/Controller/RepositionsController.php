@@ -2,11 +2,15 @@
 class RepositionsController extends AppController {
 
    	function index(){
-   		$this->set('repositions', $this->Reposition->find('all', array(
-				'conditions' => array('Reposition.deleted' => 0),
-				'order' => array('date' => 'DESC')
-			))
-		);
+		$this->paginate = array(
+			'conditions' => array(
+				'Reposition.deleted' => 0,
+			),
+            'order' => array('date' => 'desc'),
+            'limit'  => 20
+        );
+
+		$this->set('repositions', $this->paginate('Reposition'));
    	}
 
 	public function add($id = null, $idProduct = null){
@@ -20,9 +24,10 @@ class RepositionsController extends AppController {
 				$action = 'agregada';
 			}
 			$name = $this->request->data['Reposition']['Product']['name'];
+			$code = $this->request->data['Reposition']['Product']['code'];
 			$product = $this->Reposition->Product->find('first', array(
 				'fields' => array('stock'),
-				'conditions' => array('Product.name' => $this->request->data['Reposition']['Product']['name'])
+				'conditions' => array('Product.code' => $this->request->data['Reposition']['Product']['code'])
 			));
 			if(!empty($product)){
 				//setea id de producto y elimina data product de reposición
@@ -36,18 +41,26 @@ class RepositionsController extends AppController {
 					$product['Product']['stock'] += $this->request->data['Reposition']['cantity'];
 					$this->Reposition->Product->save($product);
 
-					$this->Session->setFlash('Reposición ' . $action . ' exitosamente'/*, 'success'*/);
+					$this->Session->setFlash('Reposición ' . $action . ' exitosamente', 'alert', array(
+						'plugin' => 'BoostCake',
+						'class' => 'alert-success'
+					));
 					$this->redirect(array('action' => 'index'));
 				}
 				else{
-					$this->Session->setFlash('Error al guardar la reposición'/*, 'failure'*/);
-					//recupera el name al input
+					$this->Session->setFlash('Error al guardar la reposición', 'alert', array(
+						'plugin' => 'BoostCake',
+						'class' => 'alert-danger'
+					));
 					$this->request->data['Reposition']['Product']['name'] = $name;
-					//$this->redirect(array('action' => 'index'));
+					$this->request->data['Reposition']['Product']['code'] = $code;
 				}
 			}
 			else{
-				$this->Session->setFlash('Producto no encontrado' /*, 'success' */);
+				$this->Session->setFlash('Producto no encontrado', 'alert', array(
+					'plugin' => 'BoostCake',
+					'class' => 'alert-danger'
+				));
 			}
 		}
 
@@ -62,9 +75,8 @@ class RepositionsController extends AppController {
 			$product = $this->Reposition->Product->find('first', array(
 				'conditions' => array('Product.id' => $idProduct)
 			));
-			//Bloquear input!
-
 			$this->request->data['Reposition']['Product'] = $product['Product'];
+			$this->set(compact('product'));
 		}
 	}
 }

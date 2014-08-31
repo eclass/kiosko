@@ -5,11 +5,4 @@ class Pay extends Model {
 			'foreignKey' => 'id_person'
 		),
 	);
-
-	public $paginate = array(
-		'limit' => 25,
-		'order' => array(
-			'Pay.date' => 'desc'
-		)
-	);
 }

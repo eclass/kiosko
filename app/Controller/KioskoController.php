@@ -5,4 +5,8 @@ class KioskoController extends AppController {
 
 		$this->layout = 'kiosko';
 	}
+
+	public function dashboard() {
+
+	}
 }
