@@ -4,7 +4,7 @@
 		cart = 0,
 		total = 0,
 		person = {},
-		idle = 10,
+		idle = 30,
 		json = {
 			persons: {},
 			products: {},
@@ -26,7 +26,7 @@
 		 * Atachamos el método confirm cuando presione la tecla SPACE(32)
 		 */
 		$(document).keypress(function(e) {
-			idle = 10;
+			idle = 30;
 			var code = e.keyCode || e.which;
 			if (code == 32 && state == 2) {
 				self.confirm();
@@ -39,7 +39,7 @@
 		 * Atachamos el método cancel cuando precione la tecla ESC(27)
 		 */
 		$(document).keyup(function(e) {
-			idle = 10;
+			idle = 30;
 			var code = e.keyCode || e.which;
 			if (code == 27 && state == 2) {
 				self.cancel();
@@ -363,7 +363,7 @@
  *
  * Método accesible vía
  * 	Tecla SPACE
- * 	10s de iddle
+ * 	30s de iddle
  * 	Cuando escaneen otro RUT
  *
  * @author vsanmartin
@@ -450,7 +450,7 @@
 /*!
  * Control de inactividad
  *
- * Si el usuario tiene mas de 10s de inactividad se toma como confirmada la compra
+ * Si el usuario tiene mas de 30s de inactividad se toma como confirmada la compra
  * @author vsanmartin
  * @since 2014-08-19
  * @return void
@@ -461,11 +461,11 @@
 
 			if (idle <= 0) {
 				self.confirm();
-				idle = 10;
+				idle = 30;
 			}
 		}
 		else {
-			idle = 10;
+			idle = 30;
 		}
 
 		setTimeout(function() {
