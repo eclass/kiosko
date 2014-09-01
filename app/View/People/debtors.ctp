@@ -1,42 +1,46 @@
-<?php
-echo $this->Session->flash();
-?>
+<h2 class="pull-left">Buscar Deudor</h2>
 <?php
 	echo $this->Html->link(
-		'Listado de Personas',
+		'Personas',
 		array('controller' => 'people', 'action' => 'index'),
-		array('class' => 'button')
+		array('class' => 'btn btn-success pull-right')
 	);
 ?>
+
+<br /><br />
+<hr />
+
+<div class="row">
+	<?php echo $this->Form->create(null, array('url' => array('controller' => 'people', 'action' => 'debtors'))); ?>
+	<div class="col-md-10 col-sm-9 col-xs-12">
+		<?php
+		echo $this->AutoComplete->input(
+			'Person.name',
+			array(
+				'label' => false,
+				'autocomplete' => 'off',
+				'class' => 'form-control input-search',
+				'placeholder' => 'Ingresa Nombre de la persona que buscas',
+				'autoCompleteUrl' => $this->Html->url(
+					array(
+						'controller' => 'people',
+						'action' => 'auto_complete',
+					)
+				),
+				'autoCompleteRequestItem' => 'autoCompleteText',
+			)
+		);
+		?>
+	</div>
+	<div class="col-md-2 col-sm-3 hidden-xs">
+		<?php echo $this->Form->button('Buscar', array('type' => 'submit', 'id' => 'btn-submit', 'class' => 'btn btn-primary btn-block')); ?>
+	</div>
+	<?php echo $this->Form->end(); ?>
+</div>
 <br />
 <br />
-<h2>Buscar Deudor</h2>
-<?php
-	echo $this->Form->create(null, array(
-	    'url' => array('controller' => 'people', 'action' => 'debtors')
-	));
-	echo $this->AutoComplete->input(
-				'Person.name',
-				array(
-					'label' => 'Nombre: ',
-					'autocomplete'=>'off',
-					'class'=>'form-control input-search',
-					'placeholder'=>'Ingresa Nombre de la persona',
-					'autoCompleteUrl'=>$this->Html->url(
-						array(
-							'controller'=>'people',
-							'action'=>'auto_complete_debtors',
-						)
-					),
-					'autoCompleteRequestItem'=>'autoCompleteText',
-				)
-			);
-	echo $this->Form->button('Buscar', array('type' => 'submit', 'id'=>'btn-submit', 'class'=>'btn btn-primary'));
-	echo $this->Form->end();
-?>
-<br />
-<br />
-<?php echo $this->Form->button('Pagar Total Deuda', array('type' => 'button', 'id'=>'pay-debts', 'class'=>'btn btn-primary')); ?>
+
+<?php echo $this->Form->button('Pagar Total Deuda', array('type' => 'button', 'id' => 'pay-debts', 'class' => 'btn btn-primary')); ?>
 <br />
 <br />
 <div class="table-responsive">
@@ -72,55 +76,43 @@ echo $this->Session->flash();
 	<?php endforeach; ?>
 	</table>
 </div>
-<!-- paginator con estilo bootstrap 3.0 -->
-<div class="pagination pagination-right">
-    <ul class="pagination">
-        <?php
-            if($this->Paginator->prevPage)
-                echo $this->Paginator->prev( '<<', array( 'class' => '', 'tag' => 'li' ), null, array( 'class' => 'disabled', 'tag' => 'li' ) );
-            echo $this->Paginator->first( '<< Primera Página', array( 'class' => '', 'tag' => 'li' ), null, array( 'class' => 'disabled', 'tag' => 'li' ) );
-            echo $this->Paginator->numbers( array( 'tag' => 'li', 'separator' => '', 'currentClass' => 'active', 'currentTag' => 'a' ) );
-            echo $this->Paginator->next( '>>', array( 'class' => '', 'tag' => 'li' ), null, array( 'class' => 'disabled', 'tag' => 'li' ) );
-            echo $this->Paginator->last( ' Última Página >>', array( 'class' => '', 'tag' => 'li' ), null, array( 'class' => 'disabled', 'tag' => 'li' ) );
-        ?>
-    </ul>
-</div>
-<!-- paginator con estilo bootstrap 3.0 -->
+<?php echo $this->Paginator->pagination(array('ul' => 'pagination')); ?>
 
 <script>
-	$( document ).ready(function() {
-		$('input:checkbox.debtor-all-checks').on('click', function() {
-			$('input:checkbox.debtor-check').trigger( "click" );
-		});
+$(document).ready(function() {
+	$('input:checkbox.debtor-all-checks').on('click', function() {
+		$('input:checkbox.debtor-check').trigger("click");
+	});
 
-	    $('#pay-debts').on('click', function(){
-	    	var id_person = [];
+    $('#pay-debts').on('click', function(){
+    	var id_person = [];
 
-	    	$('input:checkbox.debtor-check').each(function () {
-	    		if(this.checked) {
-	    			id_person.push(this.value);
+    	$('input:checkbox.debtor-check').each(function () {
+    		if (this.checked) {
+    			id_person.push(this.value);
+    		}
+    	});
+
+    	if (id_person.length === 0) {
+    		alert('Debes seleccionar al menos un usuario para pagar su deuda.');
+    	}
+    	else {
+	    	$.ajax({
+	    		url: '<?php echo $this->Html->url(array('controller' => 'pays', 'action' => 'pay_debts')); ?>',
+	    		data: {
+	    			id_person: id_person
+	    		},
+	    		method: 'post',
+	    		dataType: 'html',
+	    		success: function(msg) {
+	    			$('#content').prepend(msg);
+					setTimeout(function() {
+						location.href = '<?php echo $this->Html->url(array('controller' => 'pays', 'action' => 'debtors')); ?>';
+					}, 3000);
 	    		}
 	    	});
+    	}
 
-	    	if(id_person.length  === 0) {
-	    		alert('Debes Seleccionar almenos un usuario para pagar su deuda.');
-	    	} else {
-
-		    	$.ajax({
-		    		url: '/pays/pay_debts/',
-		    		data: {id_person:id_person},
-		    		method: 'post',
-		    		dataType: 'html',
-		    		success: function(msg) {
-
-		    			$('#content').prepend(msg);
-						setTimeout(function() {
-							location.href='/people/debtors/';
-						}, 3000);
-		    		}
-		    	});
-	    	}
-
-	    });
-	});
+    });
+});
 </script>
