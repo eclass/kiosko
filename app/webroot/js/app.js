@@ -308,8 +308,8 @@
 	this.deleteProduct = function() {
 		var last_product = json.transactions[cart].products.length -1;
 		last_product = json.transactions[cart].products[last_product];
-
-		total -= parseInt(json.products[last_product].price);
+		console.log(last_product);
+		total -= parseInt(last_product.total);
 		if(total == 0){
 			$('.to-show').hide();
 			$('.empty-list').show();
@@ -318,7 +318,7 @@
 
 		$('.products .row:last-child').remove();
 
-		$('div[data-kiosko="total"]').html(total);
+		$('div[data-kiosko="total"]').html('$ 	' + total);
 	}
 
 /*!
