@@ -12,7 +12,8 @@ class PeopleController extends AppController {
 		$conditions = array();
 		if(!empty($this->request->data)){
 			$conditions = array(
-				'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Person']['name']) . '%'
+				'LCASE(rut) LIKE ' => '%' . strtolower($this->request->data['Person']['name']) . '%',
+				// 'LCASE(rut) LIKE ' => '%' . strtolower($this->request->data['Person']['name']) . '%'
 			);
 		}
 
