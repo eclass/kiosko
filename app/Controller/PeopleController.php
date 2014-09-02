@@ -12,8 +12,10 @@ class PeopleController extends AppController {
 		$conditions = array();
 		if(!empty($this->request->data)){
 			$conditions = array(
-				'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Person']['name']) . '%',
-				// 'LCASE(rut) LIKE ' => '%' . strtolower($this->request->data['Person']['name']) . '%'
+				'OR' => array(
+					'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%',
+					'LCASE(rut) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%'
+				)
 			);
 		}
 
@@ -96,7 +98,10 @@ class PeopleController extends AppController {
 		$conditions = array();
 		if(!empty($this->request->data)){
 			$conditions = array(
-				'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Person']['name']) . '%'
+				'OR' => array(
+					'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%',
+					'LCASE(rut) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%'
+				)
 			);
 		}
 
@@ -124,7 +129,10 @@ class PeopleController extends AppController {
 		$this->autoRender = false;
         $products = $this->Person->find('all', array(
             'conditions' => array(
-            	'LCASE(name) LIKE ' => '%' . strtolower($this->params['url']['autoCompleteText']) . '%',
+            	'OR' => array(
+            		'LCASE(name) LIKE ' => '%' . strtolower($this->params['url']['autoCompleteText']) . '%',
+            		'LCASE(rut) LIKE ' => '%' . strtolower($this->params['url']['autoCompleteText']) . '%'
+            	)
             	'deleted' => 0,
             	'debt >' => 0
             ),
@@ -173,7 +181,10 @@ class PeopleController extends AppController {
 		$this->autoRender = false;
         $products = $this->Person->find('all', array(
             'conditions' => array(
-            	'LCASE(name) LIKE ' => '%' . strtolower($this->params['url']['autoCompleteText']) . '%'
+            	'OR' => array(
+            		'LCASE(name) LIKE ' => '%' . strtolower($this->params['url']['autoCompleteText']) . '%',
+            		'LCASE(rut) LIKE ' => '%' . strtolower($this->params['url']['autoCompleteText']) . '%'
+            	)
             ),
             'limit' => 	3,
             'recursive'=> -1,

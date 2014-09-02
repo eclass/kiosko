@@ -12,7 +12,10 @@ class ProductsController extends AppController {
 		$conditions = array();
 		if(!empty($this->request->data)){
 			$conditions = array(
-				'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%'
+				'OR' => array(
+					'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%',
+					'LCASE(code) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%'
+				)
 			);
 		}
 
@@ -112,7 +115,10 @@ class ProductsController extends AppController {
 		$this->autoRender = false;
         $products = $this->Product->find('all', array(
             'conditions' => array(
-            	'LCASE(name) LIKE ' => '%' . strtolower($this->params['url']['autoCompleteText']) . '%'
+            	'OR' => array(
+					'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%',
+					'LCASE(code) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%'
+				)
             ),
             'limit' => 	3,
             'recursive'=> -1,

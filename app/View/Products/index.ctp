@@ -18,7 +18,7 @@
 				'label' => false,
 				'autocomplete' => 'off',
 				'class' => 'form-control input-search',
-				'placeholder' => 'Ingresa Nombre del producto que buscas',
+				'placeholder' => 'Ingresa Nombre o Código del producto que buscas',
 				'autoCompleteUrl' => $this->Html->url(
 					array(
 						'controller' => 'products',

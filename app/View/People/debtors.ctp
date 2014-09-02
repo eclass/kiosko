@@ -20,7 +20,7 @@
 				'label' => false,
 				'autocomplete' => 'off',
 				'class' => 'form-control input-search',
-				'placeholder' => 'Ingresa Nombre de la persona que buscas',
+				'placeholder' => 'Ingresa Nombre o Rut de la persona que buscas',
 				'autoCompleteUrl' => $this->Html->url(
 					array(
 						'controller' => 'people',
