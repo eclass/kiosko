@@ -132,7 +132,7 @@ class PeopleController extends AppController {
             	'OR' => array(
             		'LCASE(name) LIKE ' => '%' . strtolower($this->params['url']['autoCompleteText']) . '%',
             		'LCASE(rut) LIKE ' => '%' . strtolower($this->params['url']['autoCompleteText']) . '%'
-            	)
+            	),
             	'deleted' => 0,
             	'debt >' => 0
             ),
