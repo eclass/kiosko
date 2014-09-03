@@ -113,11 +113,12 @@ class ProductsController extends AppController {
 
 	function auto_complete() {
 		$this->autoRender = false;
+
         $products = $this->Product->find('all', array(
             'conditions' => array(
             	'OR' => array(
-					'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%',
-					'LCASE(code) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%'
+					'LCASE(name) LIKE ' => '%' . strtolower($this->params['url']['autoCompleteText']) . '%',
+					'LCASE(code) LIKE ' => '%' . strtolower($this->params['url']['autoCompleteText']) . '%'
 				)
             ),
             'limit' => 	3,

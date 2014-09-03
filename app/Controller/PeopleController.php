@@ -13,8 +13,8 @@ class PeopleController extends AppController {
 		if(!empty($this->request->data)){
 			$conditions = array(
 				'OR' => array(
-					'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%',
-					'LCASE(rut) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%'
+					'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Person']['name']) . '%',
+					'LCASE(rut) LIKE ' => '%' . strtolower($this->request->data['Person']['name']) . '%'
 				)
 			);
 		}
@@ -99,8 +99,8 @@ class PeopleController extends AppController {
 		if(!empty($this->request->data)){
 			$conditions = array(
 				'OR' => array(
-					'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%',
-					'LCASE(rut) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%'
+					'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Person']['name']) . '%',
+					'LCASE(rut) LIKE ' => '%' . strtolower($this->request->data['Person']['name']) . '%'
 				)
 			);
 		}
