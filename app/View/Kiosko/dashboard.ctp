@@ -20,7 +20,7 @@
             	</span>
             	<div class="box-info">
 					<h2><?php echo $debtors_count; ?></h2>
-					<p>Deudores</p>
+					<?php echo $this->Html->link('Deudores', array('controller' => 'people', 'action' => 'debtors')); ?>
             	</div>
 			</div>
 		</div>
