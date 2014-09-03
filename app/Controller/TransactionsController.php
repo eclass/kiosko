@@ -65,6 +65,8 @@ class TransactionsController extends AppController {
 							continue;
 						}
 
+						$this->Transaction->query('UPDATE products SET stock = (stock - ' . $product['quantity'] . ')  WHERE id = ' . $data['Product']['id']);
+
 						$this->Transaction->query('
 							INSERT INTO products_transactions(id_product, id_transaction, cantity, amount)
 							VALUES(' . $data['Product']['id'] . ', ' . $transaction_id . ', ' . $product['quantity'] . ', ' . $product['total'] . ')
