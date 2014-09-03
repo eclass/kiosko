@@ -26,6 +26,8 @@
  */
 	Router::parseExtensions('json');
 	Router::connect('/', array('controller' => 'kiosko', 'action' => 'index'));
+
+	Router::connect('/panel', array('controller' => 'kiosko', 'action' => 'dashboard'));
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */

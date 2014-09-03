@@ -6,7 +6,7 @@
                 	<span class="fa fa-usd"></span>
             	</span>
             	<div class="box-info">
-					<h2>$ 57.000</h2>
+					<h2><?php echo $this->Number->currency($debtors_sum[0][0]['debt_sum'], 'CLP'); ?></h2>
 					<p>Adeudado</p>
             	</div>
 			</div>
@@ -19,7 +19,7 @@
                 	<span class="fa fa-users"></span>
             	</span>
             	<div class="box-info">
-					<h2>14</h2>
+					<h2><?php echo $debtors_count; ?></h2>
 					<p>Deudores</p>
             	</div>
 			</div>
@@ -32,8 +32,8 @@
                 	<span class="fa fa-line-chart"></span>
             	</span>
             	<div class="box-info">
-					<h2>57</h2>
-					<p>Ventas</p>
+					<h2><?php echo $transactions_count; ?></h2>
+					<p>Ventas Totales</p>
             	</div>
 			</div>
 		</div>
