@@ -33,7 +33,7 @@ echo $this->Html->link(
 );
 ?>
 <?php
-if(!empty($person['Pay'])){ ?>
+if(!empty($pays)){ ?>
 	<div class="table-responsive">
 		<table class="table table-striped table-hover">
 			<tr>
@@ -41,10 +41,10 @@ if(!empty($person['Pay'])){ ?>
 				<th>Monto</th>
 			</tr>
 			<?php
-			foreach($person['Pay'] as $pay){ ?>
+			foreach($pays as $pay){ ?>
 				<tr>
-					<td><?php echo $this->Time->nice($pay['date']); ?></td>
-					<td><?php echo $this->Number->currency($pay['amount'], 'CLP'); ?></td>
+					<td><?php echo $this->Time->nice($pay['Pay']['date']); ?></td>
+					<td><?php echo $this->Number->currency($pay['Pay']['amount'], 'CLP'); ?></td>
 				</tr>
 			<?php
 			}
@@ -61,18 +61,20 @@ else{
 <hr />
 <h2>Últimas compras</h2>
 <?php
-if(!empty($person['Transaction'])){ ?>
+if(!empty($transactions)){ ?>
 	<div class="table-responsive">
 		<table class="table table-striped table-hover">
 			<tr>
+				<th>Producto</th>
 				<th>Fecha</th>
 				<th>Total</th>
 			</tr>
 			<?php
-			foreach($person['Transaction'] as $transaction){ ?>
+			foreach($transactions as $transaction){ ?>
 				<tr>
-					<td><?php echo $this->Time->nice($transaction['date']); ?></td>
-					<td><?php echo $this->Number->currency($transaction['total']); ?></td>
+					<td><?php echo $this->Html->link($transaction['Product']['name'], array('controller' => 'products', 'action' => 'view', $transaction['Product']['id'])); ?></td>
+					<td><?php echo $this->Time->nice($transaction['Transaction']['date']); ?></td>
+					<td><?php echo $this->Number->currency($transaction['Transaction']['total']); ?></td>
 				</tr>
 			<?php
 			}

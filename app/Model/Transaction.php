@@ -13,4 +13,10 @@ class Transaction extends Model {
 		)
 	);
 
+	public $hasMany = array(
+		'ProductTransaction' => array(
+			'foreignKey' => 'id_transaction'
+		)
+	);
+
 }

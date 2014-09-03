@@ -36,6 +36,24 @@ class PeopleController extends AppController {
 			$this->set('person', $this->Person->find('first', array(
 				'conditions' => array('id' => $id)
 			)));
+
+			$transactions = $this->Person->Transaction->ProductTransaction->find('all', array(
+				'conditions' => array(
+					'Transaction.id_person' => $id
+	            ),
+	            'limit'  => 10
+        	));
+        	$this->set('transactions', $transactions);
+
+        	$pays = $this->Person->Pay->find('all', array(
+				'conditions' => array(
+					'Pay.id_person' => $id
+	            ),
+	            'limit'  => 10
+        	));
+        	$this->set('pays', $pays);
+
+
 		}
 		else{
 			$this->Session->setFlash('Id de persona inválido'/*, 'failure'*/);
