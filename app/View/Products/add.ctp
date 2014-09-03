@@ -16,6 +16,7 @@ echo $this->Form->create('Product', array(
 echo $this->Form->input('name', array('label' => 'Nombre'));
 echo $this->Form->input('price', array('label' => 'Precio'));
 echo $this->Form->input('description', array('label' => 'Descripción'));
+echo $this->Form->input('stock', array('label' => 'Stock inicial'));
 echo $this->Form->input('code', array('label' => 'Código'));
 
 echo '<div class="form-group">';
