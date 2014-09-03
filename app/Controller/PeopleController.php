@@ -216,22 +216,4 @@ class PeopleController extends AppController {
         echo $products = json_encode($data);
     }
 
-    /**
-	* Metodo para reporte de deudores
-	* @author sbarnachea
-	*
-	*/
-    public function debtors_report() {
-    	$this->layout = 'excel';
-		$debtors = $this->Person->find('all', array(
-			'conditions' => array(
-				'deleted' => 0,
-				'debt >' => 0
-            ),
-			'order' => array('name' => 'asc')
-        ));
-
-		$this->set('debtors', $debtors);
-	}
-
 }

@@ -6,13 +6,6 @@
 		array('class' => 'btn btn-success pull-right')
 	);
 ?>
-<?php
-	echo $this->Html->link(
-		'<span class="glyphicon glyphicon-save">  </span> Descargar Excel',
-		array('controller' => 'people', 'action' => 'debtors_report'),
-		array('class' => 'btn btn-danger pull-right', 'escape' => false, 'style' => 'margin-right: 10px;')
-	);
-?>
 
 <br /><br />
 <hr />

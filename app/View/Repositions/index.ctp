@@ -6,7 +6,8 @@
 		array('class' => 'btn btn-success pull-right')
 	);
 ?>
-<div class="clearfix"></div>
+<br />
+<br />
 <div class="table-responsive">
 	<table class="table table-striped table-hover">
 		<tr>
