@@ -54,7 +54,7 @@ if(!empty($person['Pay'])){ ?>
 <?php
 }
 else{
-	echo '<p>Sin pagos realizados</p>';
+	echo '<div style="clear:both"></div><p>Sin pagos realizados</p>';
 }
 ?>
 
