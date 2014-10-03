@@ -10,7 +10,7 @@ class ProductsController extends AppController {
 	public function index() {
 
 		$conditions = array();
-		if(!empty($this->request->data)){
+		if (!empty($this->request->data)) {
 			$conditions = array(
 				'OR' => array(
 					'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Product']['name']) . '%',
@@ -25,7 +25,7 @@ class ProductsController extends AppController {
             	array('deleted' => 0)
             ),
 			'order' => array('name' => 'asc'),
-            'limit'  => 5
+            'limit'  => 10
         );
 
 	    $this->set('products', $this->paginate('Product'));
