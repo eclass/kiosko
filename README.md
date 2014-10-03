@@ -34,15 +34,13 @@ Aplicación desarrollada con el fin de agilizar la venta y pago de productos del
 * Se agrega reporte de deudores en excel
 * Elimina vista xls
 
+0.3.1
+* Se permite escribir RUT y rut
+* Se cambia el plugin de generador de códigos de barra
+* Se ordenan el reporte por el nombre
+* Normaliza código de barra, en tipo y tamaño
+
 ### TODO
-- [x] Agregar el nombre de la persona
-- [x] Mostrar input del codigo de barra del producto, con el fin de ver alguna interración
-- [x] Si un producto se agrega dos veces, aparece dos veces, la columa # (cantidad) sobra
-- [x] Input de RUT ampliar, no se ve el rut completo
-- [x] Validar que existan productos en el carro cuando se elimina un producto con la tecla DELETE
-- [x] Revisar que se actualice el valor cuando se eliminan productos
-- [x] Agregar botón cancelar y confirmar (pensando en monitores touch)
-- [x] Cuando cambia de usuario no se refresca el valor total
 
 ### VERSION
-0.3.0
+0.3.1
