@@ -16,9 +16,7 @@
 			<td><?php
 			echo $this->Barcode->display(
 				'RUT' . $person['Person']['rut'],
-				array(
-					'p_label' => 'Y', 'p_bcType' => 1, 'p_charHeight' => 50
-				),
+				array('p_label' => 'Y', 'p_bcType' => 1, 'p_charHeight' => 50),
 				array('width' => 160, 'height' => 65)
 			);
 			?></td>
