@@ -20,6 +20,10 @@ $debtClass = ($person['Person']['debt'] > 0 ? 'danger' : '');
 		<td>Deuda</td>
 		<td><?php echo $this->Number->currency($person['Person']['debt'], 'CLP');?></td>
 	</tr>
+	<tr>
+		<td>Código de Barras</td>
+		<td><?php echo $this->Barcode->display('RUT' . $person['Person']['rut'], array('p_label' => 'Y', 'p_bcType' => 4, 'p_xDim' => 1, 'p_charHeight' => 50)); ?></td>
+	</tr>
 </table>
 
 

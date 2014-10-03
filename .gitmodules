@@ -1,0 +1,4 @@
+[submodule "app/Plugin/Barcode"]
+	path = app/Plugin/Barcode
+	url = https://github.com/izus/Barcode.git
+	branch = master

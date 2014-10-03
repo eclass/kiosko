@@ -7,10 +7,12 @@ class PeopleController extends AppController {
  */
 	public $components = array('RequestHandler');
 
-	public function index(){
+	public $helpers = array('Barcode.Barcode');
+
+	public function index() {
 
 		$conditions = array();
-		if(!empty($this->request->data)){
+		if (!empty($this->request->data)) {
 			$conditions = array(
 				'OR' => array(
 					'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Person']['name']) . '%',
@@ -31,8 +33,8 @@ class PeopleController extends AppController {
 	    $this->set('people', $this->paginate('Person'));
 	}
 
-	public function view($id = null){
-		if(isset($id)){
+	public function view($id = null) {
+		if (isset($id)) {
 			$this->set('person', $this->Person->find('first', array(
 				'conditions' => array('id' => $id)
 			)));
@@ -55,34 +57,34 @@ class PeopleController extends AppController {
 
 
 		}
-		else{
+		else {
 			$this->Session->setFlash('Id de persona inválido'/*, 'failure'*/);
 			$this->redirect(array('action' => 'index'));
 		}
 	}
 
-	public function add($id = null){
+	public function add($id = null) {
 
-		if(!empty($this->request->data)){
-			if(isset($id)){
+		if (!empty($this->request->data)) {
+			if (isset($id)) {
 				$this->Person->id = $id;
 				$action = 'modificada';
 			}
-			else{
+			else {
 				$this->Person->id = null;
 				$action = 'creada';
 			}
-			if($this->Person->save($this->request->data)){
+			if ($this->Person->save($this->request->data)) {
 				$this->Session->setFlash('Persona ' . $action . ' exitosamente'/*, 'success'*/);
 				$this->redirect(array('action' => 'index'));
 			}
-			else{
+			else {
 				$this->Session->setFlash('Error al guardar la persona'/*, 'failure'*/);
 				$this->redirect(array('action' => 'index'));
 			}
 		}
 
-		if(isset($id)){
+		if (isset($id)) {
 			$persono = $this->Person->find('first', array(
 				'conditions' => array('id' => $id)
 			));
@@ -90,17 +92,17 @@ class PeopleController extends AppController {
 		}
 	}
 
-	public function delete($id = null){
-		if(isset($id)){
+	public function delete($id = null) {
+		if (isset($id)) {
 			$this->Person->id = $id;
-			if($this->Person->save(array('deleted' => 1))){
+			if ($this->Person->save(array('deleted' => 1))) {
 				$this->Session->setFlash('Persona eliminada', 'default', array(), 'good');
 			}
-			else{
+			else {
 				$this->Session->setFlash('Error al eliminar la persona'/*, 'success'*/);
 			}
 		}
-		else{
+		else {
 			$this->Session->setFlash('Id de persona inválida'/*, 'failure'*/);
 		}
 		$this->redirect(array('action' => 'index'));
@@ -114,7 +116,7 @@ class PeopleController extends AppController {
 	public function debtors() {
 
 		$conditions = array();
-		if(!empty($this->request->data)){
+		if (!empty($this->request->data)) {
 			$conditions = array(
 				'OR' => array(
 					'LCASE(name) LIKE ' => '%' . strtolower($this->request->data['Person']['name']) . '%',
@@ -214,6 +216,18 @@ class PeopleController extends AppController {
         endforeach;
 
         echo $products = json_encode($data);
+    }
+
+/**
+ * Export data in excel format
+ *
+ * @author vsanmartin
+ * @since 2014-10-03
+ */
+    public function export() {
+    	$this->layout = 'xls';
+    	$people = $this->Person->find('all');
+    	$this->set(compact('people'));
     }
 
 }
