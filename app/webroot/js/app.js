@@ -155,7 +155,7 @@
 			return false;
 		}
 
-		person = json.persons[passport.val()];
+		person = json.persons[passport.val().toUpperCase()];
 		self.cart();
 		passport.val('');
 		$('p.nombre span').text(person.name);
@@ -171,7 +171,7 @@
  * @return boolean
  */
 	this.__isValidDocument = function(passport) {
-		passport = passport.replace(/[^RUT0-9kK]+/g,'').toUpperCase();
+		passport = passport.toUpperCase().replace(/[^RUT0-9kK]+/g,'');
 
 		if (passport.length < 10) {
 			return false;

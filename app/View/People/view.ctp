@@ -22,7 +22,13 @@ $debtClass = ($person['Person']['debt'] > 0 ? 'danger' : '');
 	</tr>
 	<tr>
 		<td>Código de Barras</td>
-		<td><?php echo $this->Barcode->display('RUT' . $person['Person']['rut'], array('p_label' => 'Y', 'p_bcType' => 4, 'p_xDim' => 1, 'p_charHeight' => 50)); ?></td>
+		<td><?php
+			echo $this->Barcode->display(
+				'RUT' . $person['Person']['rut'],
+				array('p_label' => 'Y', 'p_bcType' => 1, 'p_charHeight' => 50),
+				array('width' => 160, 'height' => 65)
+			);
+		?></td>
 	</tr>
 </table>
 
