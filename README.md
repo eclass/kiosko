@@ -25,6 +25,11 @@ Aplicación desarrollada con el fin de agilizar la venta y pago de productos del
 * Cambios en README.md
 * Cambio de diseño en el backend
 
+0.2.0
+* Se agrega generación automática de código de barras
+* Se agrega reporte de personas con su código de barra
+* Pequeñas mejoras en el código
+
 ### TODO
 - [x] Agregar el nombre de la persona
 - [x] Mostrar input del codigo de barra del producto, con el fin de ver alguna interración
@@ -36,4 +41,4 @@ Aplicación desarrollada con el fin de agilizar la venta y pago de productos del
 - [x] Cuando cambia de usuario no se refresca el valor total
 
 ### VERSION
-0.1.3
+0.2.0
