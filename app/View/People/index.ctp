@@ -55,7 +55,7 @@
 		<th>&nbsp;</th>
 	</tr>
 	<?php
-	foreach($people as $person){ ?>
+	foreach ($people as $person) { ?>
 		<tr>
 			<td>
 				<?php
@@ -100,3 +100,13 @@
 	</table>
 </div>
 <?php echo $this->Paginator->pagination(array('ul' => 'pagination')); ?>
+
+<div class="row">
+	<?php
+	echo $this->Html->link(
+		'Exportar',
+		array('controller' => 'people', 'action' => 'export'),
+		array('class' => 'btn btn-info pull-right', 'target' => '_blank')
+	);
+?>
+</div>
