@@ -30,6 +30,10 @@ Aplicación desarrollada con el fin de agilizar la venta y pago de productos del
 * Se agrega reporte de personas con su código de barra
 * Pequeñas mejoras en el código
 
+0.3.0
+* Se agrega reporte de deudores en excel
+* Elimina vista xls
+
 ### TODO
 - [x] Agregar el nombre de la persona
 - [x] Mostrar input del codigo de barra del producto, con el fin de ver alguna interración
@@ -41,4 +45,4 @@ Aplicación desarrollada con el fin de agilizar la venta y pago de productos del
 - [x] Cuando cambia de usuario no se refresca el valor total
 
 ### VERSION
-0.2.0
+0.3.0

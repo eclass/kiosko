@@ -219,13 +219,31 @@ class PeopleController extends AppController {
     }
 
 /**
+* Metodo para reporte de deudores
+*
+* @author sbarnachea
+*/
+    public function debtors_report() {
+        $this->layout = 'excel';
+        $debtors = $this->Person->find('all', array(
+            'conditions' => array(
+                'deleted' => 0,
+                'debt >' => 0
+            ),
+            'order' => array('name' => 'asc')
+        ));
+
+        $this->set('debtors', $debtors);
+    }
+
+/**
  * Export data in excel format
  *
  * @author vsanmartin
  * @since 2014-10-03
  */
     public function export() {
-    	$this->layout = 'xls';
+    	$this->layout = 'ajax';
     	$people = $this->Person->find('all', array('conditions' => array('deleted' => 0)));
     	$this->set(compact('people'));
     }
