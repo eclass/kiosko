@@ -226,7 +226,7 @@ class PeopleController extends AppController {
  */
     public function export() {
     	$this->layout = 'xls';
-    	$people = $this->Person->find('all');
+    	$people = $this->Person->find('all', array('conditions' => array('deleted' => 0)));
     	$this->set(compact('people'));
     }
 
