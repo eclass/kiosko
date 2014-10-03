@@ -244,7 +244,7 @@ class PeopleController extends AppController {
  */
     public function export() {
     	$this->layout = 'ajax';
-    	$people = $this->Person->find('all', array('conditions' => array('deleted' => 0)));
+    	$people = $this->Person->find('all', array('conditions' => array('deleted' => 0), 'order' => array('name' => 'asc')));
     	$this->set(compact('people'));
     }
 
